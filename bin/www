@@ -3,10 +3,11 @@
 // Babel injection
 require("babel-core/register");
 
-require("../../global");
+require("../global");
 
 const http = require("http");
-const app = require("../app");
+
+const app = require("../server/app");
 
 var port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);

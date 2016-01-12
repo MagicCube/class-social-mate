@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./global",
-    "start": "./server/bin/www"
+    "start": "./bin/www"
   },
   "repository": {
     "type": "git",
