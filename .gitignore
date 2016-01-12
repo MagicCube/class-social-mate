@@ -2,6 +2,12 @@
 logs
 *.log
 
+# Temp
+temp
+
+# DB
+db
+
 # Runtime data
 pids
 *.pid

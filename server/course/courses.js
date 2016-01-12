@@ -15,7 +15,7 @@ const courses = rawCourses.map((rawCourse) => {
         let session = null;
         if (rawSession.indexOf(":") !== -1)
         {
-            const timeString = `${$YEAR}-` + rawSession;
+            const timeString = `${YEAR}-` + rawSession;
             session = {
                 startTime: new Date(timeString)
             };
@@ -23,7 +23,7 @@ const courses = rawCourses.map((rawCourse) => {
         }
         else
         {
-            const dateString = `${$YEAR}-` + rawSession;
+            const dateString = `${YEAR}-` + rawSession;
             session = {
                 startTime: new Date(dateString + " 09:00")
             };
@@ -42,6 +42,10 @@ const courses = rawCourses.map((rawCourse) => {
 for (let i = 0; i < courses.length; i++)
 {
     const c = courses[i];
+    if (!c.searchKey)
+    {
+        c.searchKey = c.name;
+    }
     c.sessions.forEach((session, i) => {
         session.courseId = c.id;
         session.id = c.id + "-" + (i + 1);

@@ -1,10 +1,10 @@
-import "../global";
 import should from "should";
 
-import courses from "../server/course";
+import courses from "../server/course/courses";
+import sessions from "../server/course/sessions";
 
 describe("courses", function() {
-    describe("#load", function() {
+    describe("#load courses", function() {
         it("should load all the courses correctly", function() {
             const c100 = courses["c100"];
             const c109 = courses["c109"];
@@ -14,6 +14,8 @@ describe("courses", function() {
             should(courses).have.length(24);
 
             courses.forEach(course => {
+                should(courses[course.id]).not.be.empty();
+                should(course.sessions).not.be.empty();
                 course.sessions.forEach(session => {
                     const weekDay = session.startTime.getDay();
                     if (session.courseId === "c112")
@@ -55,6 +57,19 @@ describe("courses", function() {
                 startTime: new Date("2016-3-3 18:30"),
                 endTime: new Date("2016-3-3 21:30")
             });
+        });
+    });
+
+    describe("#load sessions", function() {
+        it("should load all the courses correctly", function() {
+            let sessionCount = 0;
+            courses.forEach(course => {
+                course.sessions.forEach(session => {
+                    sessionCount++;
+                    should(sessions[session.id]).be.exactly(session);
+                });
+            });
+            should(sessions).have.length(sessionCount);
         });
     });
 });
