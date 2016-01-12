@@ -1,9 +1,16 @@
 import { Router } from "express";
 
 import api from "../api";
+import auth from "./auth";
+import ensureLogin from "./auth/ensure-login"
 
 const router = Router();
 
+router.use("/auth", auth);
 router.use("/api", api);
+
+router.get("/", ensureLogin, (req, res) => {
+    res.render("index");
+});
 
 export default router;
