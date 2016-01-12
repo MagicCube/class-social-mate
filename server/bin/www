@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+// Babel injection
+require("babel-core/register");
+
+require("../../global");
+
+const http = require("http");
+const app = require("../app");
+
+var port = normalizePort(process.env.PORT || "3000");
+app.set("port", port);
+const server = http.createServer(app);
+server.listen(port, () => {
+    const addr = server.address();
+    console.log(`The server is now listening at port http://${addr.address === "::" ? "localhost" : addr.address}:${port}/`);
+});
+
+
+function normalizePort(val)
+{
+    var port = parseInt(val, 10);
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+    return false;
+}

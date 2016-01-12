@@ -1,0 +1,25 @@
+{
+  "name": "health-baby",
+  "version": "1.0.0",
+  "description": "An oversea e-commercial business.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register",
+    "start": "./server/bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.coding.net/magiccube/health-baby.git"
+  },
+  "author": "Henry Li",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^5.8.34",
+    "should": "^8.1.1"
+  },
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "express": "^4.13.3",
+    "request": "^2.67.0"
+  }
+}
