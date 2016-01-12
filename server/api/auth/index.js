@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import Auth from "../../nju-mba/auth";
+import Elective from "../../nju-mba/elective";
 import User from "../../model/user";
 
 const router = Router();
@@ -21,29 +22,40 @@ router.post("/login", (req, res) => {
         if (!err)
         {
             User.findBySchoolNum(auth.schoolNum, (err, user) => {
-                if (user)
+                if (!user)
                 {
-                    req.session.user = {
-                        _id: user._id,
-                        name: user.name,
-                        schoolNum: user.schoolNum,
-                        selectedCourseIds: user.selectedCourseIds
-                    };
-                    res.send(req.session.user);
+                    const elective = new Elective({ auth });
+                    elective.loadSelectedCourses(() => {
+                        if (elective.selectedCourseIds.length === 0)
+                        {
+                            _responseErrorWith(req, res, "没有查找到您的选修课程，请先登陆 http://nubs.nju.edu.cn/mba/ 进行选课。");
+                        }
+                        else
+                        {
+                            elective.save((err, user) => {
+                                if (err)
+                                {
+                                    // Success
+                                    _responseSuccessWith(req, res, user);
+                                }
+                                else
+                                {
+                                    _responseErrorWith(req, res, err);
+                                }
+                            });
+                        }
+                    });
                 }
                 else
                 {
-                    res.send("Not existed.");
+                    // Success
+                    _responseSuccessWith(req, res, user);
                 }
             });
         }
         else
         {
-            res.send({
-                error: {
-                    message: err.message
-                }
-            });
+            _responseErrorWith(req, res, err);
         }
     });
 });
@@ -52,6 +64,45 @@ router.post("/logout", (req, res) => {
     req.session.destroy();
     res.end();
 });
+
+
+function _transformUserToJSON(user)
+{
+    return {
+        id: user.id,
+        name: user.name,
+        schoolNum: user.schoolNum,
+        selectedCourseIds: user.selectedCourseIds
+    };
+}
+
+function _responseSuccessWith(req, res, user)
+{
+    req.session.user = _transformUserToJSON(user);
+    res.send({
+        result: {
+            id: user.id
+        }
+    });
+}
+
+function _responseErrorWith(req, res, err)
+{
+    let message = null;
+    if (typeof(err) === "string")
+    {
+        message = err;
+    }
+    else if (err instanceof Error)
+    {
+        message = err.message;
+    }
+    res.send({
+        error: {
+            message
+        }
+    });
+}
 
 function _getAuth(req)
 {

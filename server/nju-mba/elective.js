@@ -1,7 +1,7 @@
 import cheerio from "cheerio";
 import request from "request";
 
-import courses from "../course/courses";
+import courses from "../course";
 import User from "../model/user";
 
 export default class Elective
@@ -49,7 +49,7 @@ export default class Elective
             user.save(err => {
                 if (!err)
                 {
-                    cb();
+                    cb(null, user);
                 }
                 else
                 {

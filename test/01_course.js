@@ -1,7 +1,6 @@
 import should from "should";
 
-import courses from "../server/course/courses";
-import sessions from "../server/course/sessions";
+import courses from "../server/course";
 
 describe("courses", function() {
     describe("#load courses", function() {
@@ -57,19 +56,6 @@ describe("courses", function() {
                 startTime: new Date("2016-3-3 18:30"),
                 endTime: new Date("2016-3-3 21:30")
             });
-        });
-    });
-
-    describe("#load sessions", function() {
-        it("should load all the courses correctly", function() {
-            let sessionCount = 0;
-            courses.forEach(course => {
-                course.sessions.forEach(session => {
-                    sessionCount++;
-                    should(sessions[session.id]).be.exactly(session);
-                });
-            });
-            should(sessions).have.length(sessionCount);
         });
     });
 });

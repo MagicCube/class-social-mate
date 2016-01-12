@@ -66,7 +66,7 @@ export default class Auth
             }
             else
             {
-                cb(new Error("抱歉，njubs.nju.edu.cn 站点暂时无法访问。"));
+                cb(new Error("登陆失败，请检查学号、密码和验证码。"));
             }
         });
     }
