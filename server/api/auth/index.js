@@ -60,9 +60,9 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/logout", (req, res) => {
+router.all("/logout", (req, res) => {
     req.session.destroy();
-    res.end();
+    res.redirect("/");
 });
 
 
