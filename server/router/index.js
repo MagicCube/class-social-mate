@@ -15,7 +15,11 @@ router.use("/auth", auth);
 router.use("/api", api);
 
 router.get("/", ensureLogin, (req, res) => {
-    res.render("index");
+    const courses = require("../course");
+    const selectedCourses = req.user.selectedCourseIds.map(id => {
+        return courses[id];
+    });
+    res.render("index", { courses: selectedCourses });
 });
 
 export default router;

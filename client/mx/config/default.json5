@@ -1,0 +1,7 @@
+{
+    db: {
+        mongodb: {
+            url: "mongodb://localhost/csm"
+        }
+    }
+}

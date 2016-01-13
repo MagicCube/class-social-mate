@@ -9,13 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.coding.net/magiccube/health-baby.git"
+    "url": "https://git.coding.net/magiccube/class-social-mate.git"
   },
   "author": "Henry Li",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^5.8.34",
     "babel-loader": "^5.4.0",
+    "bootstrap": "^3.3.6",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "inquirer": "^0.11.2",
