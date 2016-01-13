@@ -79,11 +79,9 @@ function _transformUserToJSON(user)
 function _responseSuccessWith(req, res, user)
 {
     req.session.user = _transformUserToJSON(user);
-    res.send({
-        result: {
-            id: user.id
-        }
-    });
+    const redirectUrl = req.query.redirect ? req.query.redirect : "/";
+    req.session.authErrorMessage = null;
+    res.redirect(redirectUrl);
 }
 
 function _responseErrorWith(req, res, err)
@@ -97,11 +95,8 @@ function _responseErrorWith(req, res, err)
     {
         message = err.message;
     }
-    res.send({
-        error: {
-            message
-        }
-    });
+    req.session.authErrorMessage = message;
+    res.redirect("/auth/login");
 }
 
 function _getAuth(req)

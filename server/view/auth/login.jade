@@ -9,7 +9,7 @@ append body
             .navbar-header
                 .navbar-brand 
                     span.glyphicon.glyphicon-calendar
-                    span.title 登录到移动课程表
+                    span.title 登录到 MBA 移动课程表
     .container(style="padding-top:70px")
         .row
             .col-lg-6
@@ -30,8 +30,7 @@ append body
                                     .modal-dialog(role="document")
                                         .modal-content
                                             .modal-header
-                                                button.close(type='button', data-dismiss='modal')
-                                                    span &times;
+                                                button.close(type='button', data-dismiss='modal'): span &times;
                                                 h3.modal-title 密码及隐私声明
                                             .modal-body
                                                 p.
@@ -49,10 +48,19 @@ append body
                                 img#captchaImg
                                 script.
                                     document.getElementById("captchaImg").src="/api/auth/captcha?r="+Math.random();
-                        .form-group: .col-lg-10
                         .form-group
                             .col-lg-10
+                                if authErrorMessage
+                                    .alert.alert-warning
+                                        span.glyphicon.glyphicon-exclamation-sign
+                                        span= " " + authErrorMessage
+
+                        .form-group
+                            .col-lg-2
+                            .col-lg-10
+                                input(type="hidden", name="redirect", value=redirectUrl)
                                 button.btn.btn-success.btn-block(type="submit") 登 录
+        .row
             .col-lg-6
                 blockquote.help-block <b>郑重声明:</b> 本应用不会以任何形式存储或泄露您的密码及隐私，该密码仅用于首次获取您的选修课程。
 

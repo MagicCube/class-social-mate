@@ -4,7 +4,7 @@ const router = Router();
 
 router.get("/current", (req, res) => {
     res.send({
-        result: req.session.user ? req.session.user : null
+        result: req.user ? req.user : null
     });
 });
 

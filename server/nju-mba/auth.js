@@ -22,24 +22,24 @@ export default class Auth
     {
         if (!captcha)
         {
-            cb(new Error("请输入验证码。"));
+            cb(new Error("登陆失败，请输入验证码。"));
             return;
         }
         if (!schoolNum || schoolNum.trim() === "")
         {
-            cb(new Error("请输入学号。"));
+            cb(new Error("登陆失败，请输入学号。"));
             return;
         }
         if (!password)
         {
-            cb(new Error("请输入密码。"));
+            cb(new Error("登陆失败，请输入密码。"));
             return;
         }
 
         schoolNum = schoolNum.toUpperCase();
         if (schoolNum.indexOf("MF"))
         {
-            cb(new Error("南京大学 MBA 学号必须以字母“MF”开头。"));
+            cb(new Error("登陆失败，南京大学 MBA 学号必须以字母“MF”开头。"));
             return;
         }
 
@@ -57,21 +57,37 @@ export default class Auth
                 if (body.trim() !== "登录错误")
                 {
                     this.schoolNum = schoolNum;
-                    this._fetchElective(cb);
+                    this._fetchName((error, name) => {
+                        if (!error)
+                        {
+                            if (name)
+                            {
+                                cb()
+                            }
+                            else
+                            {
+                                cb(new Error("登录失败，请检查学号、密码和验证码。"));
+                            }
+                        }
+                        else
+                        {
+                            cb(new Error("登录失败，请检查学号、密码和验证码。"));
+                        }
+                    });
                 }
                 else
                 {
-                    cb(new Error("学号、密码或验证码输入不正确。"));
+                    cb(new Error("登录失败，请检查学号、密码和验证码。"));
                 }
             }
             else
             {
-                cb(new Error("登陆失败，请检查学号、密码和验证码。"));
+                cb(new Error("登录失败，请检查学号、密码和验证码。"));
             }
         });
     }
 
-    _fetchElective(cb)
+    _fetchName(cb)
     {
         request.get({
             url: "http://njubs.nju.edu.cn/mba/admin_index.php?admin=1120",
@@ -88,12 +104,16 @@ export default class Auth
                 if (h5.indexOf(this.schoolNum) === 0)
                 {
                     this.name = h5.substr(this.schoolNum.length);
+                    cb(null, this.name)
                 }
-                cb();
+                else
+                {
+                    cb(new Error("登录失败，请检查学号、密码和验证码。"));
+                }
             }
             else
             {
-                cb(new Error("njubs.nju.edu.cn 站点没有返回正确信息。"));
+                cb(new Error("登录失败，请检查学号、密码和验证码。"));
             }
         });
     }
