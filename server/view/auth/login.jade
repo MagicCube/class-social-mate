@@ -25,7 +25,7 @@ append body
                                 .input-group
                                     input.form-control(type="password", name="password", placeholder="请输入南大MBA官网系统的密码")
                                     span.input-group-btn
-                                        button#passwordHelpButton.btn.btn-default(data-toggle="modal", data-target="#passwordHelpModal") ?
+                                        button#passwordHelpButton.btn.btn-default(data-toggle="modal", data-target="#passwordHelpModal", onclick="return false;") ?
                                 #passwordHelpModal.modal.fade(role="dialog")
                                     .modal-dialog(role="document")
                                         .modal-content

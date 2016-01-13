@@ -1,7 +1,5 @@
-import * as mx from "../mx"
+console.log(mx);
 
 $(function() {
-    $("#passwordHelpButton").on("click", e => {
-        e.preventDefault();
-    });
+
 });

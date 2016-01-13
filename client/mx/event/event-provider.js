@@ -6,6 +6,10 @@ export default class EventProvider
     {
         if (this.hasEvent(eventType))
         {
+            if (this["on" + eventType] === null)
+            {
+                this["on" + eventType] = new Event(eventType);
+            }
             return this["on" + eventType];
         }
         else
@@ -20,7 +24,7 @@ export default class EventProvider
         {
             throw new Error("eventType must be a string.");
         }
-        return this["on" + eventType] instanceof Event;
+        return this["on" + eventType] instanceof Event || this["on" + eventType] === null;
     }
 
     on(eventType, listener)
@@ -61,7 +65,6 @@ export default class EventProvider
         const e = this.getEvent(eventType);
         if (e)
         {
-            args.type = eventType;
             e.trigger(this, args);
         }
         else

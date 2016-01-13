@@ -2,12 +2,15 @@ export default class Event
 {
     constructor(type)
     {
+        this.type = type;
         this.listeners = [];
+        this.defaultPrevented = false;
     }
 
     trigger(source, args = {})
     {
         args.source = source;
+        args.type = this.type;
         this.listeners.forEach(listener => {
             listener(args);
         });
@@ -46,5 +49,10 @@ export default class Event
     clearListeners()
     {
         this.listeners.clear();
+    }
+
+    preventDefault()
+    {
+        this.defaultPrevented = true;
     }
 }

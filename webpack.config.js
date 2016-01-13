@@ -8,7 +8,8 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const plugins = [
     new webpack.ProvidePlugin({
         "$": "jquery",
-        "jQuery": "jquery"
+        "jQuery": "jquery",
+        "mx": path.join(__dirname, "./client/mx")
     }),
     new webpack.optimize.CommonsChunkPlugin({
         name: "vendor",
@@ -28,7 +29,7 @@ module.exports = {
     // This is the root of client source codes.
     context: path.join(__dirname, "./client"),
     entry: {
-        vendor: [ "jquery", "bootstrap" ],
+        vendor: [ "jquery", "bootstrap", path.join(__dirname, "./client/mx") ],
         common: [ "./common/res/index.less" ],
         auth: [
             "./auth",

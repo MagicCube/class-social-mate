@@ -559,11 +559,7 @@ Array.prototype.contains = function(p_item)
     return this.indexOf(p_item) !== -1;
 };
 
-Array.prototype.add = function(p_item)
-{
-    this[this.length] = p_item;
-    return p_item;
-};
+Array.prototype.add = Array.prototype.push;
 
 Array.prototype.addAll = function(p_items)
 {

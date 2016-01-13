@@ -1,5 +1,5 @@
 {
-  "name": "health-baby",
+  "name": "class-social-mate",
   "version": "1.0.0",
   "description": "An oversea e-commercial business.",
   "main": "index.js",
@@ -23,6 +23,7 @@
     "jquery": "^2.2.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
+    "mx7": "^7.0.0",
     "should": "^8.1.1",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.11",
