@@ -1,14 +1,14 @@
 import "../res/index.less";
 
-import ServiceClient from "../service/service-client";
-
 import TabControl from "../tab/tab-control";
 import TabPage from "../tab/tab-page";
 
-import MonthPage from "../page/month-page";
-import WeekPage from "../page/week-page";
+import CalendarPage from "../page/calendar-page";
 import ListPage from "../page/list-page";
+import CoursePage from "../page/course-page";
 import UserPage from "../page/user-page";
+
+import serviceClient from "../service/service-client";
 
 export default class Application extends mx.Application
 {
@@ -22,8 +22,7 @@ export default class Application extends mx.Application
         this.addClass("csm-app");
         this._initTabControl();
 
-        this.serviceClient = new ServiceClient();
-        this.serviceClient.load(err => {
+        serviceClient.load(err => {
             if (!err)
             {
                 this.run();
@@ -38,17 +37,17 @@ export default class Application extends mx.Application
     _initTabControl()
     {
         this.tabControl = new TabControl("tabControl", [
-            new MonthPage(),
-            new WeekPage(),
+            new CalendarPage(),
             new ListPage(),
+            new CoursePage(),
             new UserPage()
-        ], "user");
+        ]);
         this.addSubview(this.tabControl);
     }
 
     run()
     {
         super.run();
-        this.tabControl.selectedIndex = "month";
+        this.tabControl.selectedIndex = "listPage";
     }
 }

@@ -148,6 +148,7 @@ module.exports = [{
 }, {
     id: 'c121',
     name: 'American Business Valuation and Acquisition',
+    searchKey: 'American Business Valuation and Acquisition',
     teachers: ['林邦夫'],
     room: '501',
     sessions: [ '4-16', '4-17' ],

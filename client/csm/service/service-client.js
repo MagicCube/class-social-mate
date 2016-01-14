@@ -1,7 +1,9 @@
-export default class ServiceClient extends mx.Component
+class ServiceClient extends mx.Component
 {
     _courses = [];
     _sessions = [];
+
+    _colors = ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"];
 
     get courses()
     {
@@ -22,7 +24,8 @@ export default class ServiceClient extends mx.Component
             {
                 this._courses = res.result;
 
-                this.courses.forEach(course => {
+                this.courses.forEach((course, i) => {
+                    course.color = this._colors[i];
                     this.courses[course.id] = course;
                     course.sessions.forEach(session => {
                         session.startTime = new Date(session.startTime);
@@ -32,7 +35,9 @@ export default class ServiceClient extends mx.Component
                     });
                 });
 
-                console.log(this.sessions);
+                this.sessions.sort((a, b) => {
+                    return a.startTime - b.startTime;
+                });
 
                 cb();
             }
@@ -45,3 +50,6 @@ export default class ServiceClient extends mx.Component
         });
     }
 }
+
+const serviceClient = new ServiceClient();
+export default serviceClient;

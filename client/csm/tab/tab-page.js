@@ -15,11 +15,6 @@ export default class TabPage extends mx.View
 
         this.title = title;
         this.icon = icon;
-
-        if (this.title)
-        {
-            this.$container.append("<h1>" + this.title + "</h1>");
-        }
     }
 
     initTabHeader()

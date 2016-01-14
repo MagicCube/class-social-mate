@@ -4,7 +4,7 @@ export default class UserPage extends TabPage
 {
     constructor()
     {
-        super("user", {
+        super("userPage", {
             title: "我",
             icon: "user"
         });
