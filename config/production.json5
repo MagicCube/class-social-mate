@@ -1,7 +1,7 @@
 {
     db: {
         mongodb: {
-            url: "mongodb://9c4de244-7ab2-4843-a8bc-3b0551625d0c:g9dpLe9Is1BSmnMV14VCVw@10.9.58.169:27017/b3fb3d89-f73a-4ffa-8763-ff312e5cd6bb"
+            url: "mongodb://bfb844ed-fa95-49f3-b099-2ed335fcbb1c:LSirx-ucfwnyE96vMn7lxA@10.9.58.169:27017/b3fb3d89-f73a-4ffa-8763-ff312e5cd6bb"
         }
     }
 }
