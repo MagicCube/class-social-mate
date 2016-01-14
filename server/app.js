@@ -7,10 +7,6 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import Path from "path";
 import session from "express-session";
-import webpack from "webpack";
-import webpackDevMiddleware from "webpack-dev-middleware";
-
-import webpackConfig from "../webpack.config";
 import router from "./router";
 
 mongoose.connect(config.get("db.mongodb.url"));
@@ -25,10 +21,16 @@ app.use(session({ secret: "mate-social-class", cookie: { maxAge: 365 * 24 * 60 *
 app.use(express.static("server/public", { maxAge: "365 days" }));
 
 // Client assets
-const compiler = webpack(webpackConfig);
-app.use(webpackDevMiddleware(compiler, {
-    publicPath: webpackConfig.output.publicPath
-}));
+if (devMode)
+{
+    const webpack = require("webpack");
+    const webpackDevMiddleware = require("webpack-dev-middleware");
+    const webpackConfig = require("../webpack.config");
+    const compiler = webpack(webpackConfig);
+    app.use(webpackDevMiddleware(compiler, {
+        publicPath: webpackConfig.output.publicPath
+    }));
+}
 
 
 // View engine setup

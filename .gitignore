@@ -5,9 +5,6 @@ logs
 # Temp
 temp
 
-# Client Assets
-server/public/assets
-
 # DB
 db
 
