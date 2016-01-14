@@ -1,5 +1,3 @@
-import "../res/tab-control.less";
-
 export default class TabPage extends mx.View
 {
     _icon = null;

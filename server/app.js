@@ -16,7 +16,7 @@ import router from "./router";
 mongoose.connect(config.get("db.mongodb.url"));
 
 // Express
-var app = express();
+const app = express();
 
 // Session
 app.use(session({ secret: "mate-social-class", cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 }}))
@@ -25,13 +25,11 @@ app.use(session({ secret: "mate-social-class", cookie: { maxAge: 365 * 24 * 60 *
 app.use(express.static("server/public", { maxAge: "365 days" }));
 
 // Client assets
-if (devMode)
-{
-    const compiler = webpack(webpackConfig);
-    app.use(webpackDevMiddleware(compiler, {
-        publicPath: webpackConfig.output.publicPath
-    }));
-}
+const compiler = webpack(webpackConfig);
+app.use(webpackDevMiddleware(compiler, {
+    publicPath: webpackConfig.output.publicPath
+}));
+
 
 // View engine setup
 app.set("view engine", "jade");

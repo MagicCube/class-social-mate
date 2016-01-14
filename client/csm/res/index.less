@@ -1,8 +1,10 @@
+@import "variables";
+
 html, body
 {
     width: 100%;
     height: 100%;
-    background: #f8f8f8;
+    background: @background-color;
 }
 
 .csm-app
@@ -18,3 +20,5 @@ html, body
         bottom: 0;
     }
 }
+
+@import "tab-control.less";
