@@ -4,5 +4,4 @@ const app = new Application("app");
 
 $(() => {
     app.placeAt("body");
-    app.run();
 });

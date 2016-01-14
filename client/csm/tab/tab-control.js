@@ -4,7 +4,7 @@ export default class TabControl extends mx.View
 {
     _selection = null;
 
-    constructor(id, pages)
+    constructor(id, pages, selectedIndex)
     {
         super(id);
 
@@ -26,18 +26,37 @@ export default class TabControl extends mx.View
     }
 
 
+    get pages()
+    {
+        return this.subviews;
+    }
+
     get selection()
     {
         return this._selection;
     }
 
+    get selectedIndex()
+    {
+        return this.selection ? this.pages.indexOf(this.selection) : -1;
+    }
+
+    set selectedIndex(index)
+    {
+        if (this.pages[index] instanceof TabPage)
+        {
+            this.select(index);
+        }
+    }
+
 
     addSubview(view)
     {
-        if (view instanceof TabPage)
+        if (!(view instanceof TabPage))
         {
-            this.$tabList.append(view.$tabHeader);
+            throw new Error("TabControl only accept TabPage as its subview.");
         }
+        this.$tabList.append(view.$tabHeader);
         view.hide();
         super.addSubview(view);
     }
@@ -46,7 +65,7 @@ export default class TabControl extends mx.View
     {
         if (typeof(page) === "number" || typeof(page) === "string")
         {
-            page = this.subviews[view];
+            page = this.pages[page];
         }
         if (!(page instanceof TabPage))
         {
@@ -63,6 +82,16 @@ export default class TabControl extends mx.View
             this._selection = page;
             this.selection.active();
         }
+    }
+
+    showHeader()
+    {
+        this.$tabHeader.show("fast");
+    }
+
+    hideHeader()
+    {
+        this.$tabHeader.hide("fast");
     }
 
 

@@ -49,7 +49,7 @@ String.format = function(p_string, p_args)
     var groups = null;
     if (p_string.indexOf("{") !== -1 && p_string.indexOf("}") !== -1)
     {
-        if (isObject(p_args) && !isArray(p_args))
+        if (isObject(p_args) && !Array.isArray(p_args))
         {
             groups = p_string.match(/(\{[a-z][a-z$_0-9]*\})/gi);
             if (notEmpty(groups))
@@ -67,7 +67,7 @@ String.format = function(p_string, p_args)
                 }
             }
         }
-        else if (isArray(p_args))
+        else if (Array.isArray(p_args))
         {
             groups = p_string.match(/(\{[0-9]+\})/gi);
             if (notEmpty(groups))
@@ -563,7 +563,7 @@ Array.prototype.add = Array.prototype.push;
 
 Array.prototype.addAll = function(p_items)
 {
-    if (isArray(p_items))
+    if (Array.isArray(p_items))
     {
         var array = this;
         p_items.forEach(function(p_item)
