@@ -1,42 +1,42 @@
 {
-    "name": "class-social-mate",
-    "version": "1.0.0",
-    "description": "An oversea e-commercial business.",
-    "main": "index.js",
-    "scripts": {
-        "test": "mocha --compilers js:babel-core/register --require ./global",
-        "start": "./bin/www"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://git.coding.net/magiccube/class-social-mate.git"
-    },
-    "author": "Henry Li",
-    "license": "ISC",
-    "devDependencies": {
-        "babel-loader": "^5.4.0",
-        "bootstrap": "^3.3.6",
-        "css-loader": "^0.23.1",
-        "extract-text-webpack-plugin": "^1.0.1",
-        "inquirer": "^0.11.2",
-        "less": "^2.5.3",
-        "less-loader": "^2.2.2",
-        "should": "^8.1.1",
-        "style-loader": "^0.13.0",
-        "webpack": "^1.12.11",
-        "webpack-dev-middleware": "^1.4.0"
-    },
-    "dependencies": {
-        "babel-core": "^5.8.34",
-        "body-parser": "^1.14.2",
-        "cheerio": "^0.19.0",
-        "config": "^1.19.0",
-        "cookie-parser": "^1.4.1",
-        "express": "^4.13.3",
-        "express-session": "^1.13.0",
-        "jade": "^1.11.0",
-        "jquery": "^2.2.0",
-        "mongoose": "^4.3.5",
-        "request": "^2.67.0"
-    }
+  "name": "class-social-mate",
+  "version": "1.0.0",
+  "description": "An oversea e-commercial business.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register --require ./global",
+    "start": "./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.coding.net/magiccube/class-social-mate.git"
+  },
+  "author": "Henry Li",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-loader": "^5.4.0",
+    "bootstrap": "^3.3.6",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "inquirer": "^0.11.2",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
+    "should": "^8.1.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.11",
+    "webpack-dev-middleware": "^1.4.0"
+  },
+  "dependencies": {
+    "babel-core": "^5.8.34",
+    "body-parser": "^1.14.2",
+    "cheerio": "^0.19.0",
+    "config": "^1.19.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.3",
+    "express-session": "^1.13.0",
+    "jade": "^1.11.0",
+    "jquery": "^2.2.0",
+    "mongoose": "^4.3.5",
+    "request": "^2.67.0"
+  }
 }

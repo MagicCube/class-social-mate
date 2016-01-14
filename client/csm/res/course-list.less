@@ -11,7 +11,56 @@
         {
             position: relative;
             display: block;
-            height: 80px;
+            height: 75px;
+            margin-left: 12px;
+            margin-right: 12px;
+            padding: 12px;
+            padding-top: 5px;
+            border-bottom: 1px solid #ddd;
+            font-size: @font-size-small;
+
+            .color
+            {
+                position: absolute;
+                left: 0px;
+                top: 6px;
+                bottom: 6px;
+                width: 4px;
+            }
+
+            .info
+            {
+                position: relative;
+                padding-left: 8px;
+                .name
+                {
+                    display: block;
+                    font-weight: bold;
+                    color: black;
+                    font-size: 14px;
+                    height: 28px;
+                    line-height: 28px;
+
+                    &.small
+                    {
+                        font-size: @font-size-small;
+                    }
+                }
+
+                .room
+                {
+                    display: block;
+                    color: #555;
+                    line-height: 18px;
+                }
+
+                .days
+                {
+                    display: block;
+                    color: #555;
+                    line-height: 18px;
+                }
+            }
         }
     }
 }

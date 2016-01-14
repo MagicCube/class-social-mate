@@ -30,6 +30,22 @@ export default class CourseListView extends mx.View
     {
         this.$ul.children().remove();
         this.courses.forEach(course => {
+            const days = [];
+            course.sessions.forEach(session => {
+                const day = session.startTime.getLocaleDay();
+                if (!days.contains(day))
+                {
+                    days.push(day);
+                }
+            });
+            if (days.length === 1)
+            {
+                if (course.sessions[0].startTime.getHours() > 17)
+                {
+                    days[0] = days[0] + "晚";
+                }
+            }
+
             const $li = $("<li class=course>");
             this.$ul.append($li);
 
@@ -47,6 +63,14 @@ export default class CourseListView extends mx.View
                 $name.addClass("small");
             }
             $info.append($name);
+
+            const $room = $("<span class=room>");
+            $room.text(course.room + " 教室");
+            $info.append($room);
+
+            const $days = $("<span class=days>");
+            $days.text(days.join(", "));
+            $info.append($days);
         });
     }
 }

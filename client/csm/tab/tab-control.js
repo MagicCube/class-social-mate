@@ -14,7 +14,7 @@ export default class TabControl extends mx.View
         this.$element.append($tabHeader);
         this.$tabList = $("<ul/>");
         $tabHeader.append(this.$tabList);
-        this.$tabList.on("click", "li", this._tabListItem_onclick.bind(this));
+        this.$tabList.on("tap", "li", this._tabListItem_onclick.bind(this));
 
         this.$container = $("<main/>");
         this.$element.append(this.$container);

@@ -29,7 +29,11 @@ module.exports = {
     // This is the root of client source codes.
     context: path.join(__dirname, "./client"),
     entry: {
-        vendor: [ "jquery", "bootstrap", path.join(__dirname, "./client/mx") ],
+        vendor: [
+            "jquery",
+            path.join(__dirname, "./client/jquery/jquery-tap"),
+            "bootstrap", path.join(__dirname, "./client/mx")
+        ],
         csm: "./csm"
     },
     output: {
