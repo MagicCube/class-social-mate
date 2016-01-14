@@ -7,8 +7,7 @@
         display: table;
         table-layout: fixed;
         width: 100%;
-        border-top: 1px solid #ccc;
-        background: #efefef;
+        border-top: 1px solid #cdcdcd;
 
         ul
         {
@@ -26,26 +25,40 @@
                 display: inline-block;
                 width: 25%;
                 margin: 0;
-                margin-top: 7px;
-                margin-bottom: 3px;
                 padding: 0;
                 text-align: center;
 
-                .icon
+                a
                 {
-                    font-size: 22px;
-                }
+                    display: block;
+                    padding-top: 5px;
+                    padding-bottom: 1px;
 
-                .title, .icon
-                {
-                    color: #bbb;
+                    .icon
+                    {
+                        font-size: 20px;
+                    }
+
+                    .title
+                    {
+                        font-size: 12px;
+                    }
+
+                    .title, .icon
+                    {
+                        color: #bbb;
+                    }
                 }
 
                 &.active
                 {
-                    .title, .icon
+                    a
                     {
-                        color: inherit;
+                        .title, .icon
+                        {
+                            color: inherit;
+                            font-weight: bold;
+                        }
                     }
                 }
             }
