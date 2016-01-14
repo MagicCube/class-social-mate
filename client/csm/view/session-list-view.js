@@ -23,10 +23,10 @@ export default class SessionListView extends mx.View
     set sessions(sessions)
     {
         this._sessions = sessions;
-        this.renderSessions();
+        this.render();
     }
 
-    renderSessions(sessions)
+    render()
     {
         this.$ul.children().remove();
         let curDate = null;
