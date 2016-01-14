@@ -32,6 +32,8 @@ export default class TabPage extends mx.View
 
         this._$label = $("<span class='title'/>");
         $link.append(this._$label);
+
+        this.$tabHeader.on("click", this._tabHeader_onclick.bind(this));
     }
 
 
@@ -55,5 +57,12 @@ export default class TabPage extends mx.View
     {
         this._icon = icon;
         this._$icon.addClass("glyphicon-" + icon);
+    }
+
+
+
+    _tabHeader_onclick()
+    {
+        console.log(this);
     }
 }

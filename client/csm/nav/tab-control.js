@@ -27,10 +27,6 @@ export default class TabControl extends mx.View
         if (view instanceof TabPage)
         {
             this.$tabList.append(view.$tabHeader);
-            if (this.subviews.length === 1)
-            {
-                view.$tabHeader.addClass("active");
-            }
         }
         view.hide();
         super.addSubview(view);
