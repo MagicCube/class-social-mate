@@ -4,6 +4,7 @@ logs
 
 # Temp
 temp
+server/public/assets
 
 # DB
 db

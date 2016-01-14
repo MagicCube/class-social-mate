@@ -1,10 +1,12 @@
 .tab-control
 {
-    position: relative;
-
-    header
+    > header
     {
+        position: fixed;
         display: table;
+        left: 0;
+        right: 0;
+        bottom: 0;
         table-layout: fixed;
         width: 100%;
         border-top: 1px solid #cdcdcd;
@@ -21,6 +23,7 @@
             li
             {
                 display: table-cell;
+                cursor: hand;
                 position: relative;
                 display: inline-block;
                 width: 25%;

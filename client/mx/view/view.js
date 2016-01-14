@@ -87,6 +87,10 @@ export default class View extends Component
 
         view._parent = this;
         Array.prototype.add.apply(this.subviews, [ view ]);
+        if (view.id)
+        {
+            this.subviews[view.id] = view;
+        }
 
         view.placeAt(this.$container);
     }
@@ -115,6 +119,11 @@ export default class View extends Component
 
         view._parent = null;
         Array.prototype.removeAt.apply(this.subviews, [ this.subviews.indexOf(view) ]);
+        if (view.id)
+        {
+            this.subviews[view.id] = null;
+            delete this.subviews[view.id];
+        }
 
         view.$element.remove();
     }

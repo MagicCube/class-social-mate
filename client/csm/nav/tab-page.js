@@ -15,11 +15,21 @@ export default class TabPage extends mx.View
 
         this.title = title;
         this.icon = icon;
+
+        if (this.title)
+        {
+            this.$container.append("<h1>" + this.title + "</h1>");
+        }
     }
 
     initTabHeader()
     {
         this.$tabHeader = $("<li>");
+        if (this.id)
+        {
+            this.$tabHeader.attr("id", this.id);
+        }
+        this.$tabHeader.data("page", this);
         const $link = $("<a>");
         this.$tabHeader.append($link);
 
@@ -30,8 +40,6 @@ export default class TabPage extends mx.View
 
         this._$label = $("<span class='title'/>");
         $link.append(this._$label);
-
-        this.$tabHeader.on("click", this._tabHeader_onclick.bind(this));
     }
 
 
@@ -58,9 +66,15 @@ export default class TabPage extends mx.View
     }
 
 
-
-    _tabHeader_onclick()
+    active()
     {
-        console.log(this);
+        this.$tabHeader.addClass("active");
+        this.$container.show();
+    }
+
+    deactive()
+    {
+        this.$tabHeader.removeClass("active");
+        this.$container.hide();
     }
 }
