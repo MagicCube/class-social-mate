@@ -2,17 +2,33 @@ import Component from "../component/component";
 
 export default class View extends Component
 {
-    constructor(...args)
+    _frame = null;
+
+    $element = null;
+    $container = null;
+
+    constructor(id)
     {
-        super(...args);
-
-        this._subviews = {};
-        this._frame = null;
-
-        this.$container = null;
-        this.$element = null;
+        super(id);
 
         // Treat children as a READ-ONLY array.
+        this._initSubviews();
+
+        this.$element = $("<div>");
+        this.$element.data("view", this);
+
+        this.$container = this.$element;
+
+        if (this.id)
+        {
+            this.$element.attr("id", this.id);
+        }
+    }
+
+
+    _initSubviews()
+    {
+        this._subviews = {};
         this._subviews.length = Array.prototype.length;
         this._subviews.indexOf = Array.prototype.indexOf;
         this._subviews.contains = Array.prototype.contains;
@@ -22,61 +38,7 @@ export default class View extends Component
         this._subviews.clone = Array.prototype.clone;
         this._subviews.slice = Array.prototype.slice;
         this._subviews.splice = Array.prototype.splice;
-
-        this.initView();
     }
-
-
-    initView()
-    {
-        // Setting up jQuery
-        if (this.$element === null)
-        {
-            this.$element = $("<div>");
-        }
-        if (this.$container === null)
-        {
-            this.$container = this.$element;
-        }
-
-        this.$element.data("view", this);
-        if (this.id)
-        {
-            this.$element.attr("id", this.id);
-        }
-
-
-        // Deal with subviews from init options
-        if (this.__opt_subviews)
-        {
-            this.addSubviews(this.__opt_subviews);
-            delete this.__opt_subviews;
-        }
-
-        if (this.__opt_frame)
-        {
-            this.setFrame(this.__opt_frame);
-            delete this.__opt_frame;
-        }
-    }
-
-
-    applyOptionField(name, value)
-    {
-        if (name === "subviews")
-        {
-            this.__opt_subviews = value;
-        }
-        else if (name === "frame")
-        {
-            this.__opt_frame = value;
-        }
-        else
-        {
-            super.applyOptionField(name, value);
-        }
-    }
-
 
 
 
@@ -84,6 +46,11 @@ export default class View extends Component
     get subviews()
     {
         return this._subviews;
+    }
+    set subviews(subviews)
+    {
+        this.clearSubviews();
+        this.addSubviews(subviews);
     }
 
     get frame()
@@ -94,6 +61,7 @@ export default class View extends Component
     {
         this.setFrame(frame);
     }
+
 
 
     containsSubview(view)

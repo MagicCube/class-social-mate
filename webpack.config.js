@@ -30,11 +30,7 @@ module.exports = {
     context: path.join(__dirname, "./client"),
     entry: {
         vendor: [ "jquery", "bootstrap", path.join(__dirname, "./client/mx") ],
-        common: [ "./common/res/index.less" ],
-        auth: [
-            "./auth",
-            "./auth/res/index.less"
-        ]
+        csm: "./csm"
     },
     output: {
         // webpack-dev-server will server output.path as output.publicPath
