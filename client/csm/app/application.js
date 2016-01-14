@@ -37,9 +37,9 @@ export default class Application extends mx.Application
     _initTabControl()
     {
         this.tabControl = new TabControl("tabControl", [
+            new CoursePage(),
             new CalendarPage(),
             new ListPage(),
-            new CoursePage(),
             new UserPage()
         ]);
         this.addSubview(this.tabControl);
