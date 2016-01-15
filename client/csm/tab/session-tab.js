@@ -1,20 +1,20 @@
-import TabPage from "../tab/tab-page";
+import TabView from "./tab-view";
 
 import SessionListView from "../view/session-list-view";
 
 import serviceClient from "../service/service-client";
 
-export default class ListPage extends TabPage
+export default class SessionTab extends TabView
 {
     sessionListView = null;
 
     constructor()
     {
-        super("sessionPage", {
+        super("sessionTab", {
             title: "列表",
             icon: "list"
         });
-        this.addClass("list-page");
+        this.addClass("session-tab");
 
         this.initSessionListView();
     }

@@ -1,4 +1,4 @@
-export default class TabPage extends mx.View
+export default class TabView extends mx.View
 {
     _icon = null;
     _title = null;
@@ -10,7 +10,7 @@ export default class TabPage extends mx.View
     {
         super(id);
 
-        this.addClass("tab-page");
+        this.addClass("tab");
         this.initTabHeader();
 
         this.title = title;
@@ -24,7 +24,7 @@ export default class TabPage extends mx.View
         {
             this.$tabHeader.attr("id", this.id);
         }
-        this.$tabHeader.data("page", this);
+        this.$tabHeader.data("tab", this);
         const $link = $("<a>");
         this.$tabHeader.append($link);
 

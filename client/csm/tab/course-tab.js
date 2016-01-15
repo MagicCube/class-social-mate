@@ -1,20 +1,20 @@
-import TabPage from "../tab/tab-page";
+import TabView from "./tab-view";
 
 import CourseListView from "../view/course-list-view";
 
 import serviceClient from "../service/service-client";
 
-export default class CoursePage extends TabPage
+export default class CourseTab extends TabView
 {
     courseListView = null;
 
     constructor()
     {
-        super("coursePage", {
+        super("courseTab", {
             title: "课程",
             icon: "education"
         });
-        this.addClass("course-page");
+        this.addClass("course-tab");
 
         this.initCourseListView();
     }

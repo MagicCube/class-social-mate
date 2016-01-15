@@ -1,10 +1,10 @@
-import TabPage from "./tab-page";
+import TabView from "./tab-view";
 
 export default class TabControl extends mx.View
 {
     _selection = null;
 
-    constructor(id, pages, selectedIndex)
+    constructor(id, tabs, selectedIndex)
     {
         super(id);
 
@@ -19,14 +19,14 @@ export default class TabControl extends mx.View
         this.$container = $("<main/>");
         this.$element.append(this.$container);
 
-        if (pages)
+        if (tabs)
         {
-            this.addSubviews(pages);
+            this.addSubviews(tabs);
         }
     }
 
 
-    get pages()
+    get tabs()
     {
         return this.subviews;
     }
@@ -38,12 +38,12 @@ export default class TabControl extends mx.View
 
     get selectedIndex()
     {
-        return this.selection ? this.pages.indexOf(this.selection) : -1;
+        return this.selection ? this.tabs.indexOf(this.selection) : -1;
     }
 
     set selectedIndex(index)
     {
-        if (this.pages[index] instanceof TabPage)
+        if (this.tabs[index] instanceof TabView)
         {
             this.select(index);
         }
@@ -52,34 +52,34 @@ export default class TabControl extends mx.View
 
     addSubview(view)
     {
-        if (!(view instanceof TabPage))
+        if (!(view instanceof TabView))
         {
-            throw new Error("TabControl only accept TabPage as its subview.");
+            throw new Error("TabControl only accept TabView as its subview.");
         }
         this.$tabList.append(view.$tabHeader);
         view.hide();
         super.addSubview(view);
     }
 
-    select(page)
+    select(tab)
     {
-        if (typeof(page) === "number" || typeof(page) === "string")
+        if (typeof(tab) === "number" || typeof(tab) === "string")
         {
-            page = this.pages[page];
+            tab = this.tabs[tab];
         }
-        if (!(page instanceof TabPage))
+        if (!(tab instanceof TabView))
         {
-            throw new Error("page must be a TabPage(object, id or index).");
+            throw new Error("tab must be a TabView(object, id or index).");
         }
 
-        if (this.selection !== page)
+        if (this.selection !== tab)
         {
             if (this.selection !== null)
             {
                 this.selection.deactivate();
             }
 
-            this._selection = page;
+            this._selection = tab;
             this.selection.activate();
         }
     }
@@ -98,7 +98,7 @@ export default class TabControl extends mx.View
 
     _tabListItem_onclick(e)
     {
-        const page = $(e.currentTarget).data("page");
-        this.select(page);
+        const tab = $(e.currentTarget).data("tab");
+        this.select(tab);
     }
 }

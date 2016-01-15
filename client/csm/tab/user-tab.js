@@ -1,16 +1,16 @@
-import TabPage from "../tab/tab-page";
+import TabView from "./tab-view";
 
 import serviceClient from "../service/service-client";
 
-export default class UserPage extends TabPage
+export default class UserPage extends TabView
 {
     constructor()
     {
-        super("userPage", {
+        super("userTab", {
             title: "我",
             icon: "user"
         });
-        this.addClass("user-page");
+        this.addClass("user-tab");
 
         const $banner = $(`<div class=banner>
             <div class=avatar/>

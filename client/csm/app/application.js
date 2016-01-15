@@ -1,12 +1,11 @@
 import "../res/index.less";
 
 import TabControl from "../tab/tab-control";
-import TabPage from "../tab/tab-page";
 
-import CalendarPage from "../page/calendar-page";
-import ListPage from "../page/list-page";
-import CoursePage from "../page/course-page";
-import UserPage from "../page/user-page";
+import CourseTab from "../tab/course-tab";
+import CalendarTab from "../tab/calendar-tab";
+import SessionTab from "../tab/session-tab";
+import UserTab from "../tab/user-tab";
 
 import serviceClient from "../service/service-client";
 
@@ -37,10 +36,10 @@ export default class Application extends mx.Application
     _initTabControl()
     {
         this.tabControl = new TabControl("tabControl", [
-            new CoursePage(),
-            new CalendarPage(),
-            new ListPage(),
-            new UserPage()
+            new CourseTab(),
+            new CalendarTab(),
+            new SessionTab(),
+            new UserTab()
         ]);
         this.addSubview(this.tabControl);
     }
