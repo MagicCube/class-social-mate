@@ -260,4 +260,14 @@ export default class View extends Component
     {
         return this.$element.offset(...args);
     }
+
+    width()
+    {
+        return this.$element.width();
+    }
+
+    height()
+    {
+        return this.$element.height();
+    }
 }

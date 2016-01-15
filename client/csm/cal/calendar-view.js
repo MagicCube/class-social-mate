@@ -1,5 +1,7 @@
 export default class CalendarView extends mx.View
 {
+    onselectionchanged = null;
+
     _date = null;
     _selection = null;
 
@@ -17,6 +19,17 @@ export default class CalendarView extends mx.View
         {
             this.navigateTo(new Date());
         }
+
+        this.$element.on("click", "td", e => {
+            const $cell = $(e.currentTarget);
+            if (typeof($cell.data("date")) !== "number")
+            {
+                return;
+            }
+            const $table = $cell.closest("table");
+            const date = new Date($table.data("year"), $table.data("month"), $cell.data("date"));
+            this.select(date);
+        });
     }
 
     get date()
@@ -80,6 +93,8 @@ export default class CalendarView extends mx.View
             date  = this._minDate;
         }
         this._selection = date;
+        this._renderSelection();
+        this.trigger("selectionchanged");
     }
 
     navigateAndSelect(date)
@@ -133,11 +148,6 @@ export default class CalendarView extends mx.View
             $body.append($row);
         }
         $table.find("tbody > tr > td > span").text("");
-        $table.on("tap", "td", e => {
-            const $cell = $(e.currentTarget);
-            const date = new Date($table.data("year"), $table.data("month"), $cell.data("date"));
-            this.select(date);
-        });
         return $table;
     }
 
@@ -176,9 +186,9 @@ export default class CalendarView extends mx.View
         }
     }
 
-    _renderSelection($table)
+    _renderSelection()
     {
-        $table.find(".active").removeClass("active");
-        $table.find("#day-" + this.selection.getDate()).addClass("active");
+        this.$(".active").removeClass("active");
+        this.$("table#month-" + this.selection.getMonth() + " #day-" + this.selection.getDate()).addClass("active");
     }
 }

@@ -18,6 +18,33 @@ a:hover, a:focus
     height: 100%;
 }
 
+
+
+.calendar-tab
+{
+    #sessionList
+    {
+        position: fixed;
+        z-index: 99;
+        left: 0;
+        right: 0;
+        height: 298px;
+        bottom: 0;
+        box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.1);
+
+        li.item:first-child
+        {
+            border-top: none;
+        }
+
+        li.item
+        {
+            border-bottom: 1px solid @border-color;
+        }
+    }
+}
+
+
 .user-tab
 {
     .banner

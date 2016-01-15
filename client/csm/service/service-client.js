@@ -53,6 +53,19 @@ class ServiceClient extends mx.Component
             cb(reason);
         });
     }
+
+
+    querySessionsByDate(date)
+    {
+        const results = [];
+        this.sessions.forEach(session => {
+            if (session.startTime.getFullYear() === date.getFullYear() && session.startTime.getMonth() === date.getMonth() && session.startTime.getDate() === date.getDate())
+            {
+                results.push(session);
+            }
+        });
+        return results;
+    }
 }
 
 const serviceClient = new ServiceClient();

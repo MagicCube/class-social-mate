@@ -49,8 +49,6 @@ export default class CourseListView extends ListView
             return a - b;
         });
 
-        console.log(days);
-
         days = days.map((day, i) => "周" + ["日", "一", "二", "三", "四", "五", "六"][day]);
 
         if (days.length === 1)
