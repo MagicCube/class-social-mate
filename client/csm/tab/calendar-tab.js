@@ -22,4 +22,13 @@ export default class CalendarTab extends TabView
         this._calendarView = new CalendarView("calendar");
         this.addSubview(this._calendarView);
     }
+
+    activate()
+    {
+        super.activate();
+        if (this._calendarView.date === null)
+        {
+            this._calendarView.navigateAndSelect(new Date());
+        }
+    }
 }

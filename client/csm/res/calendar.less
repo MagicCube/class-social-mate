@@ -1,10 +1,91 @@
 .calendar
 {
-    .month
+    @today-color: #ff3b30;
+
+    table
     {
-        table
+        table-layout: fixed;
+        width: 100%;
+
+        caption
         {
-            
+            color: @today-color;
+            font-size: 19px;
+            line-height: 40px;
+            height: 40px;
+            padding: 0;
+            padding-left: 8px;
+            margin: 0;
+        }
+
+        td
+        {
+            text-align: center;
+            border-bottom: 1px solid @border-color;
+
+            &.weekday-6, &.weekday-7
+            {
+                color: @secondary-color;
+            }
+        }
+
+        thead
+        {
+            tr
+            {
+                height: 24px;
+                font-size: @font-size-small;
+            }
+        }
+
+        tbody
+        {
+            tr
+            {
+                height: 48px;
+
+                td
+                {
+                    font-size: 17px;
+
+                    span
+                    {
+                        display: block;
+                        width: 40px;
+                        height: 40px;
+                        line-height: 40px;
+                        border-radius: 50%;
+                    }
+                }
+
+                td.today
+                {
+                    span
+                    {
+                        color: @today-color;
+                        font-weight: bold;
+                    }
+
+                    &.active
+                    {
+                        span
+                        {
+                            color: white !important;
+                            background-color: @today-color !important;
+                        }
+                    }
+                }
+
+                td.active
+                {
+                    span
+                    {
+                        color: white;
+                        font-weight: bold;
+                        background-color: #222;
+                    }
+                }
+            }
         }
     }
 }
