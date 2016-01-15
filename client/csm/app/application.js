@@ -11,8 +11,7 @@ import serviceClient from "../service/service-client";
 
 export default class Application extends mx.Application
 {
-    serviceClient = null;
-    tabControl = null;
+    _tabControl = null;
 
     constructor(id)
     {
@@ -35,18 +34,18 @@ export default class Application extends mx.Application
 
     _initTabControl()
     {
-        this.tabControl = new TabControl("tabControl", [
+        this._tabControl = new TabControl("tabControl", [
             new CourseTab(),
             new CalendarTab(),
             new SessionTab(),
             new UserTab()
         ]);
-        this.addSubview(this.tabControl);
+        this.addSubview(this._tabControl);
     }
 
     run()
     {
         super.run();
-        this.tabControl.selectedIndex = 3;
+        this._tabControl.selectedIndex = 3;
     }
 }

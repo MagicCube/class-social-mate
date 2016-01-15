@@ -1,8 +1,9 @@
 export default class ListView extends mx.View
 {
-    $ul = null;
     _items = null;
-    $itemTemplate = null;
+
+    _$ul = null;
+    _$itemTemplate = null;
 
     constructor(id)
     {
@@ -10,8 +11,13 @@ export default class ListView extends mx.View
 
         this.addClass("list");
 
-        this.$ul = $("<ul/>");
-        this.$container.append(this.$ul);
+        this._$ul = $("<ul/>");
+        this.$container.append(this._$ul);
+    }
+
+    get $ul()
+    {
+        return this._$ul;
     }
 
     get items()
@@ -37,11 +43,11 @@ export default class ListView extends mx.View
 
     renderItem(item, i, context)
     {
-        if (this.$itemTemplate === null)
+        if (this._$itemTemplate === null)
         {
-            this.$itemTemplate = this.getItemTemplate();
+            this._$itemTemplate = this.getItemTemplate();
         }
-        const $li = this.$itemTemplate.clone();
+        const $li = this._$itemTemplate.clone();
         return $li;
     }
 

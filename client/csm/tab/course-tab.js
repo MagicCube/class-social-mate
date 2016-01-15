@@ -6,7 +6,7 @@ import serviceClient from "../service/service-client";
 
 export default class CourseTab extends TabView
 {
-    courseListView = null;
+    _courseListView = null;
 
     constructor()
     {
@@ -16,21 +16,21 @@ export default class CourseTab extends TabView
         });
         this.addClass("course-tab");
 
-        this.initCourseListView();
+        this._initCourseListView();
     }
 
-    initCourseListView()
+    _initCourseListView()
     {
-        this.courseListView = new CourseListView("courseList");
-        this.addSubview(this.courseListView);
+        this._courseListView = new CourseListView("courseList");
+        this.addSubview(this._courseListView);
     }
 
     activate()
     {
         super.activate();
-        if (this.courseListView.items === null)
+        if (this._courseListView.items === null)
         {
-            this.courseListView.items = serviceClient.courses;
+            this._courseListView.items = serviceClient.courses;
         }
     }
 }

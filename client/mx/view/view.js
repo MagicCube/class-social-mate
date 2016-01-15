@@ -4,8 +4,8 @@ export default class View extends Component
 {
     _frame = null;
 
-    $element = null;
-    $container = null;
+    _$element = null;
+    _$container = null;
 
     constructor(id)
     {
@@ -14,10 +14,10 @@ export default class View extends Component
         // Treat children as a READ-ONLY array.
         this._initSubviews();
 
-        this.$element = $("<div>");
+        this._$element = $("<div>");
         this.$element.data("view", this);
 
-        this.$container = this.$element;
+        this._$container = this.$element;
 
         if (this.id)
         {
@@ -60,6 +60,20 @@ export default class View extends Component
     set frame(frame)
     {
         this.setFrame(frame);
+    }
+
+    get $element()
+    {
+        return this._$element;
+    }
+
+    get $container()
+    {
+        return this._$container;
+    }
+    set $container($container)
+    {
+        this._$container = $container;
     }
 
 

@@ -6,7 +6,7 @@ import serviceClient from "../service/service-client";
 
 export default class SessionTab extends TabView
 {
-    sessionListView = null;
+    _sessionListView = null;
 
     constructor()
     {
@@ -16,21 +16,21 @@ export default class SessionTab extends TabView
         });
         this.addClass("session-tab");
 
-        this.initSessionListView();
+        this._initSessionListView();
     }
 
-    initSessionListView()
+    _initSessionListView()
     {
-        this.sessionListView = new SessionListView("sessionList", true);
-        this.addSubview(this.sessionListView);
+        this._sessionListView = new SessionListView("sessionList", true);
+        this.addSubview(this._sessionListView);
     }
 
     activate()
     {
         super.activate();
-        if (this.sessionListView.items === null)
+        if (this._sessionListView.items === null)
         {
-            this.sessionListView.items = serviceClient.sessions;
+            this._sessionListView.items = serviceClient.sessions;
         }
     }
 }

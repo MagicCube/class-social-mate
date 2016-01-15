@@ -11,13 +11,13 @@ export default class TabView extends mx.View
         super(id);
 
         this.addClass("tab");
-        this.initTabHeader();
+        this._initTabHeader();
 
         this.title = title;
         this.icon = icon;
     }
 
-    initTabHeader()
+    _initTabHeader()
     {
         this.$tabHeader = $("<li>");
         if (this.id)
