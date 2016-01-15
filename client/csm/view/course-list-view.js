@@ -1,93 +1,72 @@
 import serviceClient from "../service/service-client";
 
-export default class CourseListView extends mx.View
+import ListView from "./list-view";
+
+export default class CourseListView extends ListView
 {
-    $ul = null;
-
-    _courses = null;
-
     constructor(id)
     {
         super(id);
 
-        this.addClass("list").addClass("course-list");
-
-        this.$ul = $("<ul/>");
-        this.$container.append(this.$ul);
+        this.addClass("course-list");
     }
 
-    get courses()
+    getItemDescriptionTemplate()
     {
-        return this._courses;
-    }
-    set courses(courses)
-    {
-        this._courses = courses;
-        this.render();
+        const $desc = super.getItemDescriptionTemplate();
+        $desc.append(`<div class=room /><div class=days /><div class=session-left />`);
+        return $desc;
     }
 
-    render()
+    renderItem(course, i, context)
     {
-        this.$ul.children().remove();
-        const now = new Date();
-        this.courses.forEach(course => {
-            const days = [];
-            let sessionLeft = 0;
-            course.sessions.forEach(session => {
-                const day = session.startTime.getLocaleDay();
-                if (!days.contains(day))
-                {
-                    days.push(day);
-                }
-                if (now < session.startTime)
-                {
-                    sessionLeft++;
-                }
-            });
-            if (days.length === 1)
+        const $li = super.renderItem(course, i, context);
+        $li.attr("id", course.id);
+
+        let days = [];
+        let sessionLeft = 0;
+        course.sessions.forEach(session => {
+            const day = session.startTime.getDay();
+            if (!days.contains(day))
             {
-                if (course.sessions[0].startTime.getHours() > 17)
-                {
-                    days[0] = days[0] + "晚";
-                }
+                days.push(day);
             }
-
-            const $li = $("<li class=course>");
-            this.$ul.append($li);
-
-            const $color = $("<div class=color>");
-            $color.css("background-color", course.color);
-            $li.append($color);
-
-            const $info = $("<div class=info>")
-            $li.append($info);
-
-            const $name = $("<h1 class=name>");
-            $name.text(course.name);
-            if (course.name.length > 30)
+            if (Date.now() < session.startTime )
             {
-                $name.addClass("small");
+                sessionLeft++;
             }
-            $info.append($name);
-
-            const $room = $("<span class=room>");
-            $room.text(course.room + " 教室");
-            $info.append($room);
-
-            const $days = $("<span class=days>");
-            $days.text(days.join(", "));
-            $info.append($days);
-
-            const $sessionLeft = $("<span class=session-left>");
-            if (sessionLeft > 0)
-            {
-                $sessionLeft.text("剩余 " + sessionLeft + " 课时");
-            }
-            else
-            {
-                $sessionLeft.text("已结课");
-            }
-            $info.append($sessionLeft);
         });
+
+        days.sort((a, b) => {
+            if (a === 0)
+            {
+                a = 7;
+            }
+            if (b === 0)
+            {
+                b = 7;
+            }
+            return a - b;
+        });
+
+        console.log(days);
+
+        days = days.map((day, i) => "周" + ["日", "一", "二", "三", "四", "五", "六"][day]);
+
+        if (days.length === 1)
+        {
+            if (course.sessions[0].startTime.getHours() > 17)
+            {
+                days[0] = days[0] + "晚";
+            }
+        }
+
+        $li.children(".tag").css("background-color", course.color);
+        $li.children(".title").toggleClass("small", course.name.length > 30).text(course.name);
+        $li.find(".room").text(course.room + " 教室");
+        $li.find(".days").text(days.join(", "));
+        $li.find(".session-left").text(sessionLeft > 0 ? ("剩余 " + sessionLeft + " 课时") : "已结课");
+
+        return $li;
     }
 }

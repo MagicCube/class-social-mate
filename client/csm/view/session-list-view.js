@@ -1,94 +1,62 @@
 import serviceClient from "../service/service-client";
 
-export default class SessionListView extends mx.View
+import ListView from "./list-view";
+
+export default class SessionListView extends ListView
 {
-    $ul = null;
-
-    _sessions = null;
-
     constructor(id)
     {
         super(id);
 
-        this.addClass("list").addClass("session-list");
-
-        this.$ul = $("<ul/>");
-        this.$container.append(this.$ul);
+        this.addClass("session-list");
     }
 
-    get sessions()
+    getItemTemplate()
     {
-        return this._sessions;
-    }
-    set sessions(sessions)
-    {
-        this._sessions = sessions;
-        this.render();
+        const $li = super.getItemTemplate();
+        $li.append("<div class=time ><div class=start /><div class=end /></div>");
+        return $li;
     }
 
-    render()
+    renderItem(session, i, context)
     {
-        this.$ul.children().remove();
-        let curDate = null;
-        let $anchor = null;
-        let now = new Date();
-        this.sessions.forEach(session => {
-            const course = serviceClient.courses[session.courseId];
+        const $li = super.renderItem(session, i, context);
+        const course = serviceClient.courses[session.courseId];
+        $li.attr("id", session.id);
+        const date = $format(session.startTime, "M月d日");
+        if (context.date === null || context.date !== date)
+        {
+            context.date = date;
+            const $dateLi = $("<li class='group'>");
+            $dateLi.attr("id", "date-" + date);
+            $dateLi.text(date + " " + session.startTime.getLocaleDay());
+            this.$ul.append($dateLi);
 
-            const $li = $("<li class=session>");
-            $li.attr("id", session.id);
+            $li.addClass("first-of-date");
 
-            const date = $format(session.startTime, "M月d日");
-            if (curDate === null || curDate !== date)
+            if (context.$anchor === null && session.startTime > now)
             {
-                curDate = date;
-                const $dateLi = $("<li class='date group'>");
-                $dateLi.attr("id", "date-" + date);
-                $dateLi.text(date + " " + session.startTime.getLocaleDay());
-                this.$ul.append($dateLi);
-                $li.addClass("first-of-date");
-
-                if ($anchor === null && session.startTime > now)
-                {
-                    $anchor = $dateLi;
-                }
+                context.$anchor = $dateLi;
             }
+        }
 
-            this.$ul.append($li);
+        $li.children(".title").toggleClass("small", course.name.length > 30).text(course.name);
+        $li.children(".tag").css("background-color", course.color);
+        $li.find(".time > .start").text($format(session.startTime, "HH:mm"));
+        $li.find(".time > .end").text($format(session.endTime, "HH:mm"));
+        $li.children(".desc").text(course.room + " 教室");
 
-            const $startTime = $("<span class='start time'>");
-            $startTime.text($format(session.startTime, "HH:mm"));
-            $li.append($startTime);
-            const $endTime = $("<span class='end time'>");
-            $endTime.text($format(session.endTime, "HH:mm"));
-            $li.append($endTime);
+        return $li;
+    }
 
+    render(context)
+    {
+        super.render(context);
 
-            const $color = $("<div class=color>");
-            $color.css("background-color", course.color);
-            $li.append($color);
-
-
-            const $info = $("<div class=info>")
-            $li.append($info);
-
-            const $name = $("<h1 class=name>");
-            $name.text(course.name);
-            if (course.name.length > 30)
-            {
-                $name.addClass("small");
-            }
-            $info.append($name);
-
-            const $room = $("<span class=room>");
-            $room.text(course.room + " 教室");
-            $info.append($room);
-        });
-
-        if ($anchor)
+        if (context.$anchor)
         {
             setTimeout(() => {
-                $anchor[0].scrollIntoView();
+                context.$anchor[0].scrollIntoView();
             });
         }
     }

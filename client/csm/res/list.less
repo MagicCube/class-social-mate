@@ -1,6 +1,6 @@
 .list
 {
-    ul
+    > ul
     {
         display: block;
         list-style: none;
@@ -8,53 +8,65 @@
         margin: 0;
         font-size: @font-size-small;
 
-        li
+        > li
         {
             position: relative;
             display: block;
-            color: #999;
-            font-size: @font-size-small;
-            border-bottom: 1px solid @border-color;
+
+            &.item
+            {
+                color: #999;
+                font-size: @font-size-small;
+                border-bottom: 1px solid @border-color;
+                margin-left: 12px;
+                margin-right: 12px;
+                padding-left: 12px;
+                padding-right: 12px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+
+                .tag
+                {
+                    position: absolute;
+                    left: 0px;
+                    top: 6px;
+                    bottom: 6px;
+                    width: 4px;
+                }
+
+                h1.title
+                {
+                    color: #555;
+                    display: block;
+                    font-weight: bold;
+                    font-size: 14px;
+                    padding: 0;
+                    margin: 0;
+                    white-space: nowrap;
+
+                    &.small
+                    {
+                        font-size: @font-size-small;
+                    }
+                }
+
+                .desc
+                {
+                    position: relative;
+                }
+            }
 
             &.group
             {
                 height: 32px;
                 line-height: 32px;
+                padding-left: 10px;
                 color: black;
                 font-size: 15px;
                 font-weight: bold;
                 background: #eee;
-                padding-left: 10px;
-            }
-
-
-
-            *
-            {
-                white-space: nowrap;
-            }
-
-            h1
-            {
-                color: #444;
-                display: block;
-                font-weight: bold;
-                font-size: 14px;
-                padding: 0;
-                margin: 0;
-
-                &.small
-                {
-                    font-size: @font-size-small;
-                }
-            }
-
-            .info
-            {
-                > *
-                {
-                    display: block;
-                }
+                border-top: 1px solid @border-color;
+                border-bottom: 1px solid @border-color;
             }
         }
     }

@@ -28,9 +28,9 @@ export default class CoursePage extends TabPage
     activate()
     {
         super.activate();
-        if (this.courseListView.courses === null)
+        if (this.courseListView.items === null)
         {
-            this.courseListView.courses = serviceClient.courses;
+            this.courseListView.items = serviceClient.courses;
         }
     }
 }

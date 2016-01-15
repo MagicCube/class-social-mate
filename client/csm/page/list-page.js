@@ -10,7 +10,7 @@ export default class ListPage extends TabPage
 
     constructor()
     {
-        super("listPage", {
+        super("sessionPage", {
             title: "列表",
             icon: "list"
         });
@@ -28,9 +28,9 @@ export default class ListPage extends TabPage
     activate()
     {
         super.activate();
-        if (this.sessionListView.sessions === null)
+        if (this.sessionListView.items === null)
         {
-            this.sessionListView.sessions = serviceClient.sessions;
+            this.sessionListView.items = serviceClient.sessions;
         }
     }
 }

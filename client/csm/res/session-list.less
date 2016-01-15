@@ -2,16 +2,25 @@
 {
     ul
     {
-        li.session
+        li.item
         {
-            height: 50px;
+            height: 52px;
+            padding-left: 40px;
+            border-top: 1px solid @border-color;
+            border-bottom: none;
 
             &.first-of-date
             {
-                border-top: 1px solid @border-color;
+                border-top: none;
             }
 
-            .name
+            .tag
+            {
+                left: 34px;
+                width: 2px;
+            }
+
+            h1.title
             {
                 margin-bottom: 4px;
             }
@@ -19,38 +28,12 @@
             .time
             {
                 position: absolute;
-                left: 15px;
+                top: 11px;
+                left: 0;
 
-                &.start
+                .start
                 {
                     color: black;
-                    top: 8px;
-                }
-
-                &.end
-                {
-                    top: 25px;
-                }
-            }
-
-            .color
-            {
-                position: absolute;
-                left: 57px;
-                top: 2px;
-                bottom: 2px;
-                width: 2px;
-            }
-
-            .info
-            {
-                position: absolute;
-                left: 70px;
-                padding-top: 8px;
-
-                .room
-                {
-
                 }
             }
         }
