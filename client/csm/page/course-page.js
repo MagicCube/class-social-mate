@@ -25,9 +25,9 @@ export default class CoursePage extends TabPage
         this.addSubview(this.courseListView);
     }
 
-    active()
+    activate()
     {
-        super.active();
+        super.activate();
         if (this.courseListView.courses === null)
         {
             this.courseListView.courses = serviceClient.courses;

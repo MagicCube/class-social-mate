@@ -1,4 +1,5 @@
 extends html5.jade
 
-append body
+append scripts
+    script!= "$user=" + JSON.stringify(user) + ";"
     

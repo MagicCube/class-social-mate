@@ -23,7 +23,7 @@ router.get("/", ensureLogin, (req, res) => {
     const selectedCourses = req.user.selectedCourseIds.map(id => {
         return courses[id];
     });
-    res.render("index", { courses: selectedCourses });
+    res.render("index", { user: req.user, courses: selectedCourses });
 });
 
 export default router;

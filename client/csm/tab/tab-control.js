@@ -76,11 +76,11 @@ export default class TabControl extends mx.View
         {
             if (this.selection !== null)
             {
-                this.selection.deactive();
+                this.selection.deactivate();
             }
 
             this._selection = page;
-            this.selection.active();
+            this.selection.activate();
         }
     }
 

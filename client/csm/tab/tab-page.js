@@ -61,13 +61,13 @@ export default class TabPage extends mx.View
     }
 
 
-    active()
+    activate()
     {
         this.$tabHeader.addClass("active");
         this.$container.show();
     }
 
-    deactive()
+    deactivate()
     {
         this.$tabHeader.removeClass("active");
         this.$container.hide();

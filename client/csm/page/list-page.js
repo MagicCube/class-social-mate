@@ -25,9 +25,9 @@ export default class ListPage extends TabPage
         this.addSubview(this.sessionListView);
     }
 
-    active()
+    activate()
     {
-        super.active();
+        super.activate();
         if (this.sessionListView.sessions === null)
         {
             this.sessionListView.sessions = serviceClient.sessions;

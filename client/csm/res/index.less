@@ -18,6 +18,65 @@ a:hover, a:focus
     height: 100%;
 }
 
+.user-page
+{
+    .banner
+    {
+        width: 100%;
+        height: 220px;
+        background: url(images/user-bg.jpg) no-repeat;
+        background-size: cover;
+        padding-top: 18px;
+        color: white;
+
+        .avatar
+        {
+            height: 90px;
+            background: url(images/user-avatar.png) no-repeat center;
+        }
+
+        .name
+        {
+            font-size: 26px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+            margin-top: 10px;
+        }
+
+        .info
+        {
+            text-align: center;
+            line-height: 25px;
+            height: 25px;
+            margin-top: 10px;
+
+            a
+            {
+                color: rgba(255, 255, 255, 0.85);
+
+                .figure
+                {
+                    color: white;
+                    font-size: 20px;
+                    margin-right: 2px;
+                }
+            }
+
+            .separator
+            {
+                display: inline-block;
+                height: 25px;
+                background: url(images/separator.png) no-repeat;
+                margin-left: 20px;
+                margin-right: 20px;
+                opacity: 0.85;
+            }
+        }
+    }
+}
+
 @import "tab-control.less";
+@import "list.less";
 @import "course-list.less";
 @import "session-list.less";

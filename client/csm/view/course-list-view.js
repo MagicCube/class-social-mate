@@ -10,7 +10,7 @@ export default class CourseListView extends mx.View
     {
         super(id);
 
-        this.addClass("course-list");
+        this.addClass("list").addClass("course-list");
 
         this.$ul = $("<ul/>");
         this.$container.append(this.$ul);
@@ -29,13 +29,19 @@ export default class CourseListView extends mx.View
     render()
     {
         this.$ul.children().remove();
+        const now = new Date();
         this.courses.forEach(course => {
             const days = [];
+            let sessionLeft = 0;
             course.sessions.forEach(session => {
                 const day = session.startTime.getLocaleDay();
                 if (!days.contains(day))
                 {
                     days.push(day);
+                }
+                if (now < session.startTime)
+                {
+                    sessionLeft++;
                 }
             });
             if (days.length === 1)
@@ -56,7 +62,7 @@ export default class CourseListView extends mx.View
             const $info = $("<div class=info>")
             $li.append($info);
 
-            const $name = $("<span class=name>");
+            const $name = $("<h1 class=name>");
             $name.text(course.name);
             if (course.name.length > 30)
             {
@@ -71,6 +77,17 @@ export default class CourseListView extends mx.View
             const $days = $("<span class=days>");
             $days.text(days.join(", "));
             $info.append($days);
+
+            const $sessionLeft = $("<span class=session-left>");
+            if (sessionLeft > 0)
+            {
+                $sessionLeft.text("剩余 " + sessionLeft + " 课时");
+            }
+            else
+            {
+                $sessionLeft.text("已结课");
+            }
+            $info.append($sessionLeft);
         });
     }
 }

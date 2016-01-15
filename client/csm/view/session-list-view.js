@@ -10,7 +10,7 @@ export default class SessionListView extends mx.View
     {
         super(id);
 
-        this.addClass("session-list");
+        this.addClass("list").addClass("session-list");
 
         this.$ul = $("<ul/>");
         this.$container.append(this.$ul);
@@ -42,7 +42,7 @@ export default class SessionListView extends mx.View
             if (curDate === null || curDate !== date)
             {
                 curDate = date;
-                const $dateLi = $("<li class=date>");
+                const $dateLi = $("<li class='date group'>");
                 $dateLi.attr("id", "date-" + date);
                 $dateLi.text(date + " " + session.startTime.getLocaleDay());
                 this.$ul.append($dateLi);
@@ -72,7 +72,7 @@ export default class SessionListView extends mx.View
             const $info = $("<div class=info>")
             $li.append($info);
 
-            const $name = $("<span class=name>");
+            const $name = $("<h1 class=name>");
             $name.text(course.name);
             if (course.name.length > 30)
             {

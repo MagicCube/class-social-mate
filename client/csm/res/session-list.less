@@ -2,41 +2,18 @@
 {
     ul
     {
-        display: block;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        li
-        {
-            position: relative;
-            display: block;
-        }
-
-        li.date
-        {
-            height: 32px;
-            line-height: 32px;
-            color: black;
-            font-weight: bold;
-            background: #eee;
-            padding-left: 10px;
-        }
-
         li.session
         {
             height: 50px;
-            font-size: @font-size-small;
-            border-bottom: 1px solid #ddd;
 
             &.first-of-date
             {
-                border-top: 1px solid #ddd;
+                border-top: 1px solid @border-color;
             }
 
-            *
+            .name
             {
-                display: block;
+                margin-bottom: 4px;
             }
 
             .time
@@ -46,12 +23,12 @@
 
                 &.start
                 {
+                    color: black;
                     top: 8px;
                 }
 
                 &.end
                 {
-                    color: #999;
                     top: 25px;
                 }
             }
@@ -69,25 +46,11 @@
             {
                 position: absolute;
                 left: 70px;
-
-                padding-top: 7px;
-
-                .name
-                {
-                    color: #555;
-                    font-size: 14px;
-                    font-weight: bold;
-                    white-space: nowrap;
-
-                    &.small
-                    {
-                        font-size: 12px;
-                    }
-                }
+                padding-top: 8px;
 
                 .room
                 {
-                    color: #999;
+
                 }
             }
         }

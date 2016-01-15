@@ -39,6 +39,10 @@ class ServiceClient extends mx.Component
                     return a.startTime - b.startTime;
                 });
 
+                this.courses.sort((a, b) => {
+                    return a.sessions[0].startTime - b.sessions[0].startTime;
+                });
+
                 cb();
             }
             else
