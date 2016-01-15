@@ -3,15 +3,15 @@ export default class CalendarView extends mx.View
     _date = null;
     _selection = null;
 
-    _$table = null;
+    _minDate = new Date("2016-01-01");
+    _maxDate = new Date("2016-08-01");
+
+    _$tempalteTable = null;
 
     constructor(id, date)
     {
         super(id);
         this.addClass("calendar");
-
-        this._$table = this._initTable();
-        this.$container.append(this._$table);
 
         if (date)
         {
@@ -43,6 +43,14 @@ export default class CalendarView extends mx.View
         {
             throw new Error("date must be an instance of Date.");
         }
+        if (date > this._maxDate)
+        {
+            date = this._maxDate;
+        }
+        else if (date < this._minDate)
+        {
+            date  = this._minDate;
+        }
         if (this.date && this.date.getFullYear() === date.getFullYear() && this.date.getMonth() === date.getMonth())
         {
             this._date = date;
@@ -50,7 +58,11 @@ export default class CalendarView extends mx.View
         }
 
         this._date = date;
-        this.render();
+        this._ensureMonths(7);
+
+        setTimeout(() => {
+            this.$("table#month-" + date.getMonth())[0].scrollIntoView();
+        });
     }
 
     select(date)
@@ -59,12 +71,15 @@ export default class CalendarView extends mx.View
         {
             throw new Error("date must be an instance of Date.");
         }
-        this._selection = date;
-
-        if (this.date && this.date.getFullYear() === date.getFullYear() && this.date.getMonth() === date.getMonth())
+        if (date > this._maxDate)
         {
-            this.renderSelection(this._$table);
+            date = this._maxDate;
         }
+        else if (date < this._minDate)
+        {
+            date  = this._minDate;
+        }
+        this._selection = date;
     }
 
     navigateAndSelect(date)
@@ -73,23 +88,35 @@ export default class CalendarView extends mx.View
         this.select(date);
     }
 
-    render()
+
+
+
+
+
+    _ensureMonths(months)
     {
-        this._renderTable(this._$table, this._date);
+        const $tables = this.$("table");
+        if ($tables.length >= months)
+        {
+            return;
+        }
+
+        if (this._$tempalteTable === null)
+        {
+            this._$templateTable = this._createTable();
+        }
+
+        for (let i = $tables.length; i < months; i++)
+        {
+            const $table = this._$templateTable.clone();
+            this.$container.append($table);
+            this._renderTable($table, new Date(2016, i, 1));
+        }
     }
 
-    renderSelection($table)
-    {
-        $table.find(".active").removeClass("active");
-        $table.find("#day-" + this.selection.getDate()).addClass("active");
-    }
-
-
-
-    _initTable()
+    _createTable()
     {
         const $table = $(`<table><caption/><thead><tr class=week ></tr></thead><tbody></tbody></table>`);
-        this.$container.append($table);
         const $headerRow = $table.find("thead > tr");
         const $body = $table.children("tbody");
         ["一", "二", "三", "四", "五", "六", "日"].forEach((day, i) => {
@@ -104,10 +131,6 @@ export default class CalendarView extends mx.View
             const $row = $headerRow.clone();
             $row.addClass("row-" + (i + 1));
             $body.append($row);
-            if (i === 5)
-            {
-                $row.hide();
-            }
         }
         $table.find("tbody > tr > td > span").text("");
         $table.on("tap", "td", e => {
@@ -125,7 +148,6 @@ export default class CalendarView extends mx.View
         $table.data("year", date.getFullYear());
         $table.children("caption").text($format(date, "yyyy年M月"));
         $table.find("tbody > tr > td").attr("id", null);
-        $table.find("tbody > tr > td > span").text("");
         const firstDayOfDate = new Date(date.getFullYear(), date.getMonth(), 1);
         const daysInMonth = Date.getDaysInMonth(date.getFullYear(), date.getMonth());
         let row = 1;
@@ -146,13 +168,17 @@ export default class CalendarView extends mx.View
             $cell.data("date", i + 1);
             weekDay++;
         }
-        $table.find(".row-6").toggle(row === 6);
 
-        $table.find(".today").removeClass(".today");
         const today = new Date();
         if (today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth())
         {
             $table.find("#day-" + today.getDate()).addClass("today");
         }
+    }
+
+    _renderSelection($table)
+    {
+        $table.find(".active").removeClass("active");
+        $table.find("#day-" + this.selection.getDate()).addClass("active");
     }
 }

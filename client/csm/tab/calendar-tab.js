@@ -28,7 +28,7 @@ export default class CalendarTab extends TabView
         super.activate();
         if (this._calendarView.date === null)
         {
-            this._calendarView.navigateAndSelect(new Date());
+            this._calendarView.navigateAndSelect(new Date("2016-03-01"));
         }
     }
 }
