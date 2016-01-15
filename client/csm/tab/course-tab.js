@@ -1,6 +1,6 @@
 import TabView from "./tab-view";
 
-import CourseListView from "../view/course-list-view";
+import CourseListView from "../list/course-list-view";
 
 import serviceClient from "../service/service-client";
 

@@ -1,6 +1,6 @@
 import TabView from "./tab-view";
 
-import SessionListView from "../view/session-list-view";
+import SessionListView from "../list/session-list-view";
 
 import serviceClient from "../service/service-client";
 
