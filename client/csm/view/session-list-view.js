@@ -4,11 +4,20 @@ import ListView from "./list-view";
 
 export default class SessionListView extends ListView
 {
-    constructor(id)
+    _grouped = false;
+
+    constructor(id, grouped = false)
     {
         super(id);
 
+        this._grouped = grouped;
+
         this.addClass("session-list");
+    }
+
+    get grouped()
+    {
+        return this._grouped;
     }
 
     getItemTemplate()
@@ -24,7 +33,7 @@ export default class SessionListView extends ListView
         const course = serviceClient.courses[session.courseId];
         $li.attr("id", session.id);
         const date = $format(session.startTime, "M月d日");
-        if (context.date === null || context.date !== date)
+        if (this._grouped && (context.date === null || context.date !== date))
         {
             context.date = date;
             const $dateLi = $("<li class='group'>");

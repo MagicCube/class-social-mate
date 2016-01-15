@@ -21,7 +21,7 @@ export default class SessionTab extends TabView
 
     initSessionListView()
     {
-        this.sessionListView = new SessionListView("sessionList");
+        this.sessionListView = new SessionListView("sessionList", true);
         this.addSubview(this.sessionListView);
     }
 
