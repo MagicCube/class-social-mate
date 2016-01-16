@@ -28,9 +28,6 @@ export default class CourseTab extends TabView
     activate()
     {
         super.activate();
-        if (this._courseListView.items === null)
-        {
-            this._courseListView.items = serviceClient.courses;
-        }
+        this._courseListView.loadOnce();
     }
 }

@@ -28,9 +28,6 @@ export default class SessionTab extends TabView
     activate()
     {
         super.activate();
-        if (this._sessionListView.items === null)
-        {
-            this._sessionListView.items = serviceClient.sessions;
-        }
+        this._sessionListView.loadOnce();
     }
 }

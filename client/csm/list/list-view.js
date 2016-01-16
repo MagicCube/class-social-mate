@@ -31,6 +31,26 @@ export default class ListView extends mx.View
         this.render(context);
     }
 
+    get hasLoaded()
+    {
+        return this._hasLoaded;
+    }
+
+    load()
+    {
+
+    }
+
+    _hasLoaded = false;
+    loadOnce()
+    {
+        if (!this.hasLoaded)
+        {
+            this.load();
+            this._hasLoaded = true;
+        }
+    }
+
     render(context)
     {
         this.$ul.children().remove();

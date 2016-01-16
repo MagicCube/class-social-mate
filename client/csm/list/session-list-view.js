@@ -13,6 +13,10 @@ export default class SessionListView extends ListView
         this._grouped = grouped;
 
         this.addClass("session-list");
+
+        this.$element.on("click", "li", e => {
+            alert(e.currentTarget.id);
+        });
     }
 
     get grouped()
@@ -36,10 +40,7 @@ export default class SessionListView extends ListView
         if (this._grouped && (context.date === null || context.date !== date))
         {
             context.date = date;
-            const $dateLi = $("<li class='group'>");
-            $dateLi.attr("id", "date-" + date);
-            $dateLi.text(date + " " + session.startTime.getLocaleDay());
-            this.$ul.append($dateLi);
+            this.appendGroup(session.startTime);
 
             $li.addClass("first-of-date");
 
@@ -68,5 +69,21 @@ export default class SessionListView extends ListView
                 context.$anchor[0].scrollIntoView();
             });
         }
+    }
+
+    appendGroup(date)
+    {
+        const dateString = $format(date, "M月d日");
+        const $dateLi = $("<li class='group'>");
+        $dateLi.attr("id", "date-" + dateString);
+        $dateLi.text(dateString + " " + date.getLocaleDay());
+        this.$ul.append($dateLi);
+    }
+
+
+
+    load()
+    {
+        this.items = serviceClient.sessions;
     }
 }

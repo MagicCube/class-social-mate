@@ -11,6 +11,16 @@ export default class CourseListView extends ListView
         this.addClass("course-list");
     }
 
+
+
+    load()
+    {
+        this.items = serviceClient.courses;
+    }
+
+
+
+
     getItemDescriptionTemplate()
     {
         const $desc = super.getItemDescriptionTemplate();
