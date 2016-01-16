@@ -20,6 +20,25 @@ export default class CalendarView extends mx.View
             this.navigateTo(new Date());
         }
 
+        const hammer = new Hammer(this.$element[0], {
+            recognizers: [
+                [Hammer.Tap]
+            ]
+        });
+        hammer.on("tap", e => {
+            const $cell = $(e.target).closest("td");
+            if ($cell.length === 1)
+            {
+                if (typeof($cell.data("date")) !== "number")
+                {
+                    return;
+                }
+                const $table = $cell.closest("table");
+                const date = new Date($table.data("year"), $table.data("month"), $cell.data("date"));
+                this.select(date);
+            }
+        });
+        /*
         this.$element.on("click", "td", e => {
             const $cell = $(e.currentTarget);
             if (typeof($cell.data("date")) !== "number")
@@ -30,6 +49,7 @@ export default class CalendarView extends mx.View
             const date = new Date($table.data("year"), $table.data("month"), $cell.data("date"));
             this.select(date);
         });
+        */
     }
 
     get date()
