@@ -1,3 +1,5 @@
+import MonthView from "./month-view";
+
 export default class CalendarView extends mx.View
 {
     onselectionchanged = null;
@@ -7,8 +9,6 @@ export default class CalendarView extends mx.View
 
     _minDate = new Date("2016-01-01");
     _maxDate = new Date("2016-08-01");
-
-    _$tempalteTable = null;
 
     constructor(id, date)
     {
@@ -34,22 +34,13 @@ export default class CalendarView extends mx.View
                     return;
                 }
                 const $table = $cell.closest("table");
-                const date = new Date($table.data("year"), $table.data("month"), $cell.data("date"));
-                this.select(date);
+                if ($table.data("month"))
+                {
+                    const date = new Date($table.data("year"), $table.data("month"), $cell.data("date"));
+                    this.select(date);
+                }
             }
         });
-        /*
-        this.$element.on("click", "td", e => {
-            const $cell = $(e.currentTarget);
-            if (typeof($cell.data("date")) !== "number")
-            {
-                return;
-            }
-            const $table = $cell.closest("table");
-            const date = new Date($table.data("year"), $table.data("month"), $cell.data("date"));
-            this.select(date);
-        });
-        */
     }
 
     get date()
@@ -92,10 +83,6 @@ export default class CalendarView extends mx.View
 
         this._date = date;
         this._ensureMonths(7);
-
-        setTimeout(() => {
-            this.$("table#month-" + date.getMonth())[0].scrollIntoView();
-        });
     }
 
     select(date)
@@ -130,22 +117,10 @@ export default class CalendarView extends mx.View
 
     _ensureMonths(months)
     {
-        const $tables = this.$("table");
-        if ($tables.length >= months)
+        for (let i = 0; i < months; i++)
         {
-            return;
-        }
-
-        if (this._$tempalteTable === null)
-        {
-            this._$templateTable = this._createTable();
-        }
-
-        for (let i = $tables.length; i < months; i++)
-        {
-            const $table = this._$templateTable.clone();
-            this.$container.append($table);
-            this._renderTable($table, new Date(2016, i, 1));
+            const monthView = new MonthView("month" + i, new Date(2016, i, 1));
+            this.addSubview(monthView);
         }
     }
 
