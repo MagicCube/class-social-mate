@@ -19,9 +19,9 @@ export default class View extends Component
 
         this._$container = this.$element;
 
-        if (this.id)
+        if (id)
         {
-            this.$element.attr("id", this.id);
+            this.setId(id);
         }
     }
 
@@ -41,6 +41,27 @@ export default class View extends Component
     }
 
 
+    setId(id)
+    {
+        super.setId(id);
+
+        const oldId = super._id;
+        console.log(this.id);
+
+        if (typeof(oldId) === "string" && this.parent)
+        {
+            delete this.parent.subviews[oldId];
+        }
+
+        if (this.$element)
+        {
+            this.$element.attr("id", this.id);
+        }
+        if (this.parent)
+        {
+            this.parent.subviews[this.id] = this;
+        }
+    }
 
 
     get subviews()

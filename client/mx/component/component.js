@@ -14,7 +14,10 @@ export default class Component extends EventProvider
             throw new Error("Component's id must be a string.");
         }
 
-        this._id = id;
+        if (id)
+        {
+            this.setId(id);
+        }
     }
 
 
@@ -22,6 +25,14 @@ export default class Component extends EventProvider
     get id()
     {
         return this._id;
+    }
+    setId(id)
+    {
+        if (typeof(id) !== "string")
+        {
+            throw new Error("id must be a string.");
+        }
+        this._id = id;
     }
 
     get parent()
