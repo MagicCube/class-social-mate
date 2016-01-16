@@ -49,10 +49,5 @@ export default class CalendarTab extends TabView
 
 function _calendarView_onselectionchanged(e)
 {
-    const sessions = serviceClient.querySessionsByDate(this._calendarView.selection);
-    this._sessionListView.items = sessions;
-    if (sessions.length === 0)
-    {
-        this._sessionListView.appendGroup(this._calendarView.selection);
-    }
+    this._sessionListView.queryByDate(this._calendarView.selection);
 }

@@ -24,6 +24,25 @@ export default class SessionListView extends ListView
         return this._grouped;
     }
 
+
+
+    load()
+    {
+        this.items = serviceClient.sessions;
+    }
+
+    queryByDate(date)
+    {
+        this.items = serviceClient.querySessionsByDate(date);
+        if (this.grouped && this.items.length === 0)
+        {
+            this.appendGroup(date);
+        }
+    }
+
+
+
+
     getItemTemplate()
     {
         const $li = super.getItemTemplate();
@@ -78,12 +97,5 @@ export default class SessionListView extends ListView
         $dateLi.attr("id", "date-" + dateString);
         $dateLi.text(dateString + " " + date.getLocaleDay());
         this.$ul.append($dateLi);
-    }
-
-
-
-    load()
-    {
-        this.items = serviceClient.sessions;
     }
 }
