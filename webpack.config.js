@@ -33,7 +33,6 @@ module.exports = {
         vendor: [
             "jquery",
             "hammerjs",
-            path.join(__dirname, "./client/jquery/jquery-tap"),
             "bootstrap", path.join(__dirname, "./client/mx")
         ],
         csm: "./csm"

@@ -13,10 +13,6 @@ export default class SessionListView extends ListView
         this._grouped = grouped;
 
         this.addClass("session-list");
-
-        this.$element.on("click", "li", e => {
-            alert(e.currentTarget.id);
-        });
     }
 
     get grouped()

@@ -21,14 +21,32 @@ export default class UserPage extends TabView
                 <a class=sessions><span class=figure></span>课时</a>
             </div>
         </div>`);
-        $banner.on("tap", "a", e => {
-            if (e.currentTarget.className === "courses")
+        const hammer = new Hammer($banner[0], {
+            recognizers: [
+                [Hammer.Tap]
+            ]
+        });
+        hammer.on("tap", e => {
+            let target = null;
+            if (e.target.tagName === "A")
             {
-                this.parent.select("coursePage");
+                target = e.target;
             }
-            else if (e.currentTarget.className === "sessions")
+            else if (e.target.tagName === "SPAN" && e.target.className === "figure")
             {
-                this.parent.select("listPage");
+                target = e.target.parentElement;
+            }
+
+            if (target)
+            {
+                if (target.className === "courses")
+                {
+                    this.parent.select("courseTab");
+                }
+                else if (target.className === "sessions")
+                {
+                    this.parent.select("sessionTab");
+                }
             }
         });
         this.$container.append($banner);

@@ -14,7 +14,31 @@ export default class TabControl extends mx.View
         this.$element.append($tabHeader);
         this.$tabList = $("<ul/>");
         $tabHeader.append(this.$tabList);
-        this.$tabList.on("tap", "li", this._tabListItem_onclick.bind(this));
+        const hammer = new Hammer(this.$tabList[0], {
+            recognizers: [
+                [Hammer.Tap]
+            ]
+        });
+        hammer.on("tap", e => {
+            let $li = null;
+            if (e.target.tagName === "SPAN")
+            {
+                $li = $(e.target.parentElement.parentElement);
+            }
+            else if (e.target.tagName === "A")
+            {
+                $li = $(e.target.parentElement);
+            }
+            else if (e.target.tagName === "LI")
+            {
+                $li = $(e.target);
+            }
+            if ($li)
+            {
+                this._tabListItem_onclick($li);
+            }
+        });
+        //this.$tabList.on("tap", "li", this._tabListItem_onclick.bind(this));
 
         this.$container = $("<main/>");
         this.$element.append(this.$container);
@@ -96,9 +120,12 @@ export default class TabControl extends mx.View
 
 
 
-    _tabListItem_onclick(e)
+    _tabListItem_onclick($li)
     {
-        const tab = $(e.currentTarget).data("tab");
-        this.select(tab);
+        const tab = $li.data("tab");
+        if (tab)
+        {
+            this.select(tab);
+        }
     }
 }
