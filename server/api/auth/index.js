@@ -22,34 +22,41 @@ router.post("/login", (req, res) => {
         if (!err)
         {
             User.findBySchoolNum(auth.schoolNum, (err, user) => {
-                if (!user)
+                if (!err)
                 {
-                    const elective = new Elective({ auth });
-                    elective.loadSelectedCourses(() => {
-                        if (elective.selectedCourseIds.length === 0)
-                        {
-                            _responseErrorWith(req, res, "没有查找到您的选修课程，请先登陆 http://nubs.nju.edu.cn/mba/ 进行选课。");
-                        }
-                        else
-                        {
-                            elective.save((err, user) => {
-                                if (err)
-                                {
-                                    // Success
-                                    _responseSuccessWith(req, res, user);
-                                }
-                                else
-                                {
-                                    _responseErrorWith(req, res, err);
-                                }
-                            });
-                        }
-                    });
+                    if (!user)
+                    {
+                        const elective = new Elective({ auth });
+                        elective.loadSelectedCourses(() => {
+                            if (elective.selectedCourseIds.length === 0)
+                            {
+                                _responseErrorWith(req, res, "没有查找到您的选修课程，请先登陆 http://nubs.nju.edu.cn/mba/ 进行选课。");
+                            }
+                            else
+                            {
+                                elective.save((err, user) => {
+                                    if (!err)
+                                    {
+                                        // Success
+                                        _responseSuccessWith(req, res, user);
+                                    }
+                                    else
+                                    {
+                                        _responseErrorWith(req, res, err);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    else
+                    {
+                        // Success
+                        _responseSuccessWith(req, res, user);
+                    }
                 }
                 else
                 {
-                    // Success
-                    _responseSuccessWith(req, res, user);
+                    _responseErrorWith(req, res, err);
                 }
             });
         }
@@ -78,6 +85,7 @@ function _transformUserToJSON(user)
 
 function _responseSuccessWith(req, res, user)
 {
+    console.info(`User authenticated: ${user.name}, ${JSON.stringify(user)})`);
     req.session.user = _transformUserToJSON(user);
     const redirectUrl = req.query.redirect ? req.query.redirect : "/";
     req.session.authErrorMessage = null;
@@ -86,6 +94,7 @@ function _responseSuccessWith(req, res, user)
 
 function _responseErrorWith(req, res, err)
 {
+    console.error("User authentication failed: " + err);
     let message = null;
     if (typeof(err) === "string")
     {
