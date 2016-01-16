@@ -9,6 +9,7 @@ const plugins = [
     new webpack.ProvidePlugin({
         "$": "jquery",
         "jQuery": "jquery",
+        "Hammer": "hammerjs",
         "mx": path.join(__dirname, "./client/mx")
     }),
     new webpack.optimize.CommonsChunkPlugin({
@@ -31,6 +32,7 @@ module.exports = {
     entry: {
         vendor: [
             "jquery",
+            "hammerjs",
             path.join(__dirname, "./client/jquery/jquery-tap"),
             "bootstrap", path.join(__dirname, "./client/mx")
         ],

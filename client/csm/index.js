@@ -1,7 +1,7 @@
-import Application from "./app/application"
+import Application from "./app/application";
 
 const app = new Application("app");
 
 $(() => {
-    app.placeAt("body");
+    app.placeAt(document.body);
 });
