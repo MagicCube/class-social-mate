@@ -9,10 +9,12 @@ const router = Router();
 router.all("*", function(req, res, next) {
     req.user = req.session.user ? req.session.user : null;
 
+    /*
     if (!req.user)
     {
         req.user = {"id":"5695032eae80543d19944ce8","name":"李昕","schoolNum":"MF1402157","selectedCourseIds":["c109","c110","c107","c111","c106","c121","c120"]};
     }
+    */
 
     next();
 });
