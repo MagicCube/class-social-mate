@@ -8,7 +8,13 @@ export default class CalendarView extends mx.View
     _selection = null;
 
     _minDate = new Date("2016-01-01");
-    _maxDate = new Date("2016-08-01");
+    _maxDate = new Date("2016-07-31");
+
+    _monthView = null;
+    _monthViewLeft = null;
+    _monthViewRight = null;
+
+    _panning = false;
 
     constructor(id, date)
     {
@@ -20,10 +26,96 @@ export default class CalendarView extends mx.View
             this.navigateTo(new Date());
         }
 
+        this.$container = $("<div class=calendar-container />");
+        this.$element.append(this.$container);
+
+        this._initMonthViews();
+        this._initHammer();
+    }
+
+    _initMonthViews()
+    {
+        this._monthView = new MonthView();
+        this._monthView.addClass("middle");
+        this.addSubview(this._monthView);
+
+        this._monthViewLeft = new MonthView();
+        this._monthViewLeft.addClass("left");
+        this.addSubview(this._monthViewLeft);
+
+        this._monthViewRight = new MonthView();
+        this._monthViewRight.addClass("right");
+        this.addSubview(this._monthViewRight);
+    }
+
+    _initHammer()
+    {
         const hammer = new Hammer(this.$element[0], {
             recognizers: [
-                [Hammer.Tap]
+                [Hammer.Tap],
+                [Hammer.Pinch, { enable: false }],
+                [Hammer.Pan, { direction: Hammer.DIRECTION_HORIZONTAL }]
             ]
+        });
+        hammer.on("panstart", e => {
+            if (this._panning)
+            {
+                return;
+            }
+            this._panning = true;
+            let x = 0;
+            const translate = this._monthView.css("translate");
+            if (translate)
+            {
+                x = parseInt(translate);
+            }
+            const panState = { initialX: x, x };
+            hammer.on("panmove", e => {
+                e.preventDefault();
+                let x = e.deltaX + panState.initialX;
+                if (this.date.getMonth() === this._minDate.getMonth() && x > this.width() / 4)
+                {
+                    x = this.width() / 4;
+                }
+                if (this.date.getMonth() === this._maxDate.getMonth() && x < -this.width() / 4)
+                {
+                    x = -this.width() / 4;
+                }
+                panState.x = x;
+                this.$container.css({ x });
+            });
+            hammer.on("panend", e => {
+                e.preventDefault();
+                hammer.off("panend");
+                hammer.off("panmove");
+                let x = panState.x;
+                if (x > this.width() / 4)
+                {
+                    x = this.width();
+                }
+                else if (x < -this.width() / 4)
+                {
+                    x = -this.width();
+                }
+                else
+                {
+                    x = 0;
+                }
+
+                let duration = e.deltaTime * 0.8;
+                if (duration > 1000)
+                {
+                    duration = 1000;
+                }
+                this.$container.transit({ x }, duration, () => {
+                    if (x !== 0)
+                    {
+                        this.$container.css({ x: 0 });
+                        this.date = x > 0 ? this.date.addMonths(-1) : this.date.addMonths(1);
+                    }
+                    this._panning = false;
+                });
+            });
         });
         hammer.on("tap", e => {
             const $cell = $(e.target).closest("td");
@@ -42,6 +134,8 @@ export default class CalendarView extends mx.View
             }
         });
     }
+
+
 
     get date()
     {
@@ -82,7 +176,12 @@ export default class CalendarView extends mx.View
         }
 
         this._date = date;
-        this._ensureMonths(7);
+        this._monthView.date = date;
+
+        const lastMonth = date.addMonths(-1);
+        this._monthViewLeft.date = lastMonth > this._minDate ? lastMonth : null;
+        const nextMonth = date.addMonths(1);
+        this._monthViewRight.date = nextMonth < this._maxDate ? nextMonth : null;
     }
 
     select(date)
@@ -112,78 +211,8 @@ export default class CalendarView extends mx.View
 
 
 
-
-
-
-    _ensureMonths(months)
-    {
-        for (let i = 0; i < months; i++)
-        {
-            const monthView = new MonthView("month" + i, new Date(2016, i, 1));
-            this.addSubview(monthView);
-        }
-    }
-
-    _createTable()
-    {
-        const $table = $(`<table><caption/><thead><tr class=week ></tr></thead><tbody></tbody></table>`);
-        const $headerRow = $table.find("thead > tr");
-        const $body = $table.children("tbody");
-        ["一", "二", "三", "四", "五", "六", "日"].forEach((day, i) => {
-            const $cell = $("<td><span/></td>");
-            $cell.addClass("weekday-" + (i + 1));
-            $cell.children("span").text(day);
-            $headerRow.append($cell);
-        });
-
-        for (let i = 0; i < 6; i++)
-        {
-            const $row = $headerRow.clone();
-            $row.addClass("row-" + (i + 1));
-            $body.append($row);
-        }
-        $table.find("tbody > tr > td > span").text("");
-        return $table;
-    }
-
-    _renderTable($table, date)
-    {
-        $table.attr("id", "month-" + date.getMonth());
-        $table.data("month", date.getMonth());
-        $table.data("year", date.getFullYear());
-        $table.children("caption").text($format(date, "yyyy年M月"));
-        $table.find("tbody > tr > td").attr("id", null);
-        const firstDayOfDate = new Date(date.getFullYear(), date.getMonth(), 1);
-        const daysInMonth = Date.getDaysInMonth(date.getFullYear(), date.getMonth());
-        let row = 1;
-        let weekDay = firstDayOfDate.getDay();
-        weekDay = (weekDay === 0 ? 7 : weekDay);
-        let $row = $table.find(".row-1");
-        for (let i = 0; i < daysInMonth; i++)
-        {
-            if (weekDay > 7)
-            {
-                weekDay = 1;
-                row++;
-                $row = $table.find(".row-" + row);
-            }
-            const $cell = $row.find(".weekday-" + weekDay);
-            $cell.attr("id", "day-" + (i + 1));
-            $cell.children("span").text(i + 1);
-            $cell.data("date", i + 1);
-            weekDay++;
-        }
-
-        const today = new Date();
-        if (today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth())
-        {
-            $table.find("#day-" + today.getDate()).addClass("today");
-        }
-    }
-
     _renderSelection()
     {
-        this.$(".active").removeClass("active");
-        this.$("table#month-" + this.selection.getMonth() + " #day-" + this.selection.getDate()).addClass("active");
+
     }
 }

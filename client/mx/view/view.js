@@ -46,7 +46,6 @@ export default class View extends Component
         super.setId(id);
 
         const oldId = super._id;
-        console.log(this.id);
 
         if (typeof(oldId) === "string" && this.parent)
         {
@@ -80,7 +79,7 @@ export default class View extends Component
     }
     set frame(frame)
     {
-        this.setFrame(frame);
+        this.setFrame(frame, true);
     }
 
     get $element()
@@ -198,18 +197,34 @@ export default class View extends Component
 
 
 
-    setFrame(frame)
+    setFrame(frame, reset = false)
     {
-        this._frame = frame;
-
-        if (this.$element)
+        if (!this.$element)
         {
-            this.css(frame);
+            return;
+        }
+        if (!frame)
+        {
+            frame = {};
+        }
 
-            if (notEmpty(frame.left) || notEmpty(frame.right) || notEmpty(frame.top) || notEmpty(frame.bottom))
+        if (reset)
+        {
+            this._frame = frame;
+        }
+        else
+        {
+            if (this._frame)
             {
-                this.css("position", "absolute");
+                Object.assign(this._frame, frame);
             }
+        }
+
+
+        this.css(frame);
+        if (notEmpty(frame.left) || notEmpty(frame.right) || notEmpty(frame.top) || notEmpty(frame.bottom))
+        {
+            this.css("position", "absolute");
         }
     };
 
@@ -291,4 +306,10 @@ export default class View extends Component
     {
         return this.$element.height();
     }
+}
+
+
+function notEmpty(a)
+{
+    return typeof(a) !== "undefined" && a !== null;
 }

@@ -32,6 +32,7 @@ module.exports = {
     entry: {
         vendor: [
             "jquery",
+            "jquery.transit",
             "hammerjs",
             "bootstrap",
             path.join(__dirname, "./client/mx")

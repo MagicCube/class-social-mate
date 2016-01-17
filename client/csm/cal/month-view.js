@@ -3,7 +3,7 @@ export default class MonthView extends mx.View
     _date = null;
     _$table = null;
 
-    constructor(id, date)
+    constructor(id, date = null)
     {
         super(id);
         this.addClass("month");
@@ -20,13 +20,19 @@ export default class MonthView extends mx.View
     {
         return this._date;
     }
-    set date(date)
+    set date(date = null)
     {
-        if (!(date instanceof Date))
+        if (date !== null && !(date instanceof Date))
         {
             throw new Error("date must be an instance of Date.");
         }
-        if (this._date)
+
+        if (date !== null)
+        {
+            date = new Date(date.getFullYear(), date.getMonth(), 1);
+        }
+
+        if (this._date && date)
         {
             if (this._date.getFullYear() === date.getFullYear() && this._date.getMonth() === date.getMonth())
             {
@@ -34,21 +40,10 @@ export default class MonthView extends mx.View
                 return;
             }
         }
-        else
-        {
-            this._date = date;
-        }
-        if (this._date !== null)
-        {
-            this.render();
-        }
-    }
 
+        this._date = date;
 
-
-    clone()
-    {
-        return
+        this.render();
     }
 
 
@@ -80,16 +75,26 @@ export default class MonthView extends mx.View
     {
         const date = this.date;
         const $table = this._$table;
-        $table.data("month", date.getMonth());
-        $table.data("year", date.getFullYear());
+        if (date === null)
+        {
+            $table.hide();
+            return;
+        }
+        $table.show();
+        const $tbody = $table.children("tbody");
+
+        // Reset
+        $tbody.find("td").removeClass("active today");
+        $tbody.find("span").text("");
+
         $table.children("caption").text($format(date, "yyyy年M月"));
-        $table.find("tbody > tr > td").attr("id", null);
+
         const firstDayOfDate = new Date(date.getFullYear(), date.getMonth(), 1);
         const daysInMonth = Date.getDaysInMonth(date.getFullYear(), date.getMonth());
         let row = 1;
         let weekDay = firstDayOfDate.getDay();
         weekDay = (weekDay === 0 ? 7 : weekDay);
-        let $row = $table.find(".row-1");
+        let $row = $tbody.find(".row-1");
         for (let i = 0; i < daysInMonth; i++)
         {
             if (weekDay > 7)
@@ -99,16 +104,8 @@ export default class MonthView extends mx.View
                 $row = $table.find(".row-" + row);
             }
             const $cell = $row.find(".weekday-" + weekDay);
-            $cell.attr("id", "day-" + (i + 1));
             $cell.children("span").text(i + 1);
-            $cell.data("date", i + 1);
             weekDay++;
-        }
-
-        const today = new Date();
-        if (today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth())
-        {
-            $table.find("#day-" + today.getDate()).addClass("today");
         }
     }
 }

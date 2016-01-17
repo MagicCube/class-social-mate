@@ -21,6 +21,7 @@
     "file-loader": "^0.8.5",
     "hammerjs": "^2.0.6",
     "inquirer": "^0.11.2",
+    "jquery.transit": "^0.9.12",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "should": "^8.1.1",
