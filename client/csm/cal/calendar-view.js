@@ -73,13 +73,13 @@ export default class CalendarView extends mx.View
             hammer.on("panmove", e => {
                 e.preventDefault();
                 let x = e.deltaX + panState.initialX;
-                if (this.date.getMonth() === this._minDate.getMonth() && x > this.width() / 4)
+                if (this.date.getMonth() === this._minDate.getMonth() && x > 0)
                 {
-                    x = this.width() / 4;
+                    x = Math.sqrt(e.deltaX * 20) + panState.initialX
                 }
-                if (this.date.getMonth() === this._maxDate.getMonth() && x < -this.width() / 4)
+                if (this.date.getMonth() === this._maxDate.getMonth() && x < 0)
                 {
-                    x = -this.width() / 4;
+                    x = -Math.sqrt(Math.abs(e.deltaX) * 20) + panState.initialX
                 }
                 panState.x = x;
                 this.$container.css({ x });
@@ -89,11 +89,11 @@ export default class CalendarView extends mx.View
                 hammer.off("panend");
                 hammer.off("panmove");
                 let x = panState.x;
-                if (x > this.width() / 4)
+                if (x > this.width() / 5)
                 {
                     x = this.width();
                 }
-                else if (x < -this.width() / 4)
+                else if (x < -this.width() / 5)
                 {
                     x = -this.width();
                 }
@@ -102,11 +102,17 @@ export default class CalendarView extends mx.View
                     x = 0;
                 }
 
-                let duration = e.deltaTime * 0.8;
-                if (duration > 1000)
+                let duration = e.deltaTime;
+                if (duration < 200)
+                {
+                    duration = 200;
+                }
+                else if (duration > 1000)
                 {
                     duration = 1000;
                 }
+
+
                 this.$container.transit({ x }, duration, () => {
                     if (x !== 0)
                     {
@@ -127,8 +133,6 @@ export default class CalendarView extends mx.View
                             this._monthView = original.right;
                             this._monthViewLeft = original.center;
                             this._monthViewRight = original.left;
-                            this._date = this._monthView.date;
-                            this._monthViewRight.date = this.date.addMonths(1);
                         }
                         else if (x > 0)
                         {
@@ -139,26 +143,30 @@ export default class CalendarView extends mx.View
                             this._monthView = original.left;
                             this._monthViewRight = original.center;
                             this._monthViewLeft = original.right;
-                            this._date = this._monthView.date;
-                            this._monthViewLeft.date = this.date.addMonths(-1);
+                        }
+
+                        const now = new Date();
+                        if (now.getFullYear() === this._monthView.date.getFullYear() && now.getMonth() === this._monthView.date.getMonth())
+                        {
+                            this.navigateAndSelect(now);
+                        }
+                        else
+                        {
+                            this.navigateAndSelect(this._monthView.date);
                         }
                     }
                     this._panning = false;
                 });
             });
         });
+
         hammer.on("tap", e => {
             const $cell = $(e.target).closest("td");
             if ($cell.length === 1)
             {
-                if (typeof($cell.data("date")) !== "number")
+                const date = $cell.data("date");
+                if (date instanceof Date)
                 {
-                    return;
-                }
-                const $table = $cell.closest("table");
-                if ($table.data("month"))
-                {
-                    const date = new Date($table.data("year"), $table.data("month"), $cell.data("date"));
                     this.select(date);
                 }
             }
@@ -243,6 +251,9 @@ export default class CalendarView extends mx.View
 
     _renderSelection()
     {
-
+        this._monthView.$(".active").removeClass("active");
+        this._monthViewLeft.$(".active").removeClass("active");
+        this._monthViewRight.$(".active").removeClass("active");
+        this._monthView.$("#date-" + this.selection.getDate()).addClass("active");
     }
 }

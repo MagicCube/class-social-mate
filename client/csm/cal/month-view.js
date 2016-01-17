@@ -84,7 +84,7 @@ export default class MonthView extends mx.View
         const $tbody = $table.children("tbody");
 
         // Reset
-        $tbody.find("td").removeClass("active today");
+        $tbody.find("td").attr("id", null).data("date", null).removeClass("active today");
         $tbody.find("span").text("");
 
         $table.children("caption").text($format(date, "yyyy年M月"));
@@ -105,7 +105,15 @@ export default class MonthView extends mx.View
             }
             const $cell = $row.find(".weekday-" + weekDay);
             $cell.children("span").text(i + 1);
+            $cell.data("date", date.addDays(i));
+            $cell.attr("id", "date-" + (i + 1));
             weekDay++;
+        }
+
+        const today = new Date();
+        if (today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth())
+        {
+            $tbody.find("td#date-" + today.getDate()).addClass("today");
         }
     }
 }
