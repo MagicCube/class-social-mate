@@ -111,7 +111,37 @@ export default class CalendarView extends mx.View
                     if (x !== 0)
                     {
                         this.$container.css({ x: 0 });
-                        this.date = x > 0 ? this.date.addMonths(-1) : this.date.addMonths(1);
+
+                        const original = {
+                            center: this._monthView,
+                            right: this._monthViewRight,
+                            left: this._monthViewLeft
+                        };
+
+                        if (x < 0)
+                        {
+                            this._monthView.removeClass("middle").addClass("left");
+                            this._monthViewRight.removeClass("right").addClass("middle");
+                            this._monthViewLeft.removeClass("left").addClass("right");
+
+                            this._monthView = original.right;
+                            this._monthViewLeft = original.center;
+                            this._monthViewRight = original.left;
+                            this._date = this._monthView.date;
+                            this._monthViewRight.date = this.date.addMonths(1);
+                        }
+                        else if (x > 0)
+                        {
+                            this._monthView.removeClass("middle").addClass("right");
+                            this._monthViewLeft.removeClass("left").addClass("middle");
+                            this._monthViewRight.removeClass("right").addClass("left");
+
+                            this._monthView = original.left;
+                            this._monthViewRight = original.center;
+                            this._monthViewLeft = original.right;
+                            this._date = this._monthView.date;
+                            this._monthViewLeft.date = this.date.addMonths(-1);
+                        }
                     }
                     this._panning = false;
                 });
@@ -179,9 +209,9 @@ export default class CalendarView extends mx.View
         this._monthView.date = date;
 
         const lastMonth = date.addMonths(-1);
-        this._monthViewLeft.date = lastMonth > this._minDate ? lastMonth : null;
+        this._monthViewLeft.date = lastMonth;
         const nextMonth = date.addMonths(1);
-        this._monthViewRight.date = nextMonth < this._maxDate ? nextMonth : null;
+        this._monthViewRight.date = nextMonth;
     }
 
     select(date)
