@@ -216,7 +216,7 @@ export default class View extends Component
         {
             if (this._frame)
             {
-                Object.assign(this._frame, frame);
+                $.extend(this._frame, frame);
             }
         }
 
