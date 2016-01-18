@@ -40,7 +40,7 @@ export default class CalendarTab extends TabView
         super.activate();
         if (this._calendarView.date === null)
         {
-            this._calendarView.css("paddingBottom", this._sessionListView.height() - 46);
+            this._sessionListView.css("paddingTop", this._calendarView.height() - 1);
             this._calendarView.navigateAndSelect(new Date());
         }
     }

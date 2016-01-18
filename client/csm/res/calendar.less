@@ -1,127 +1,219 @@
-.calendar
+@today-color: #ff3b30;
+
+
+.calendar-responsive(@ratio)
 {
-    @today-color: #ff3b30;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-
-    height: 353px;
-
-
     .month
     {
-        width: 100%;
-        position: absolute;
-
-        &.middle
-        {
-            left: 0;
-            top: 0;
-        }
-
-        &.left
-        {
-            left: -100%;
-            top: 0;
-        }
-
-        &.right
-        {
-            left: 100%;
-            top: 0;
-        }
-
         table
         {
-            table-layout: fixed;
-            width: 100%;
-
-            caption
-            {
-                color: @today-color;
-                font-size: 19px;
-                line-height: 40px;
-                height: 40px;
-                padding: 0;
-                padding-left: 12px;
-                margin: 0;
-            }
-
-            td
-            {
-                text-align: center;
-                border-bottom: 1px solid @border-color;
-
-                &.weekday-6, &.weekday-7
-                {
-                    color: @secondary-color;
-                }
-
-                span
-                {
-                    display: block;
-                    width: 40px;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-            }
-
-            thead
-            {
-                tr
-                {
-                    height: 24px;
-                    font-size: @font-size-small;
-                }
-            }
-
             tbody
             {
                 tr
                 {
-                    height: 48px;
+                    height: 44px * @ratio;
 
                     td
                     {
-                        font-size: 17px;
+                        font-size: 17px * sqrt(@ratio);
 
                         span
                         {
-                            height: 40px;
-                            line-height: 40px;
-                            border-radius: 50%;
-                            transition: background-color 0.3s;
+                            width: 40px * @ratio;
+                            height: 40px * @ratio;
+                            line-height: 40px * @ratio;
                         }
                     }
+                }
+            }
+        }
+    }
+}
 
-                    td.today
+
+@media (min-device-height: 1000px)
+{
+    // iPad Portrait / PC
+    .calendar
+    {
+        .calendar-responsive(2);
+    }
+}
+
+@media (min-device-height: 700px)
+   and (max-device-height: 999px)
+{
+    // iPad Landscape
+    .calendar
+    {
+        .calendar-responsive(1.5);
+    }
+}
+
+@media (min-device-height: 600px)
+   and (max-device-height: 699px)
+{
+    // iPhone 6 / iPhone 6 Plus Portrait
+    .calendar
+    {
+        .calendar-responsive(1);
+    }
+}
+
+@media (min-device-height: 500px)
+   and (max-device-height: 599px)
+{
+    // iPhone 5
+    .calendar
+    {
+        .calendar-responsive(0.8);
+    }
+}
+
+@media (min-device-height: 400px)
+   and (max-device-height: 499px)
+{
+    // iPhone 4
+    .calendar
+    {
+        .calendar-responsive(0.6);
+    }
+}
+
+@media (min-device-height: 0px)
+   and (max-device-height: 399px)
+{
+    // Min
+    .calendar
+    {
+        .calendar-responsive(0.5);
+
+        caption
+        {
+            font-size: 14px;
+            line-height: 20px;
+            height: 20px;
+        }
+    }
+}
+
+
+.calendar
+{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background: white;
+
+    .month
+    {
+        top: 0;
+
+        &.middle
+        {
+
+        }
+
+        &.left
+        {
+            position: absolute;
+            left: -100%;
+        }
+
+        &.right
+        {
+            position: absolute;
+            left: 100%;
+        }
+    }
+}
+
+.month
+{
+    width: 100%;
+
+    table
+    {
+        table-layout: fixed;
+        width: 100%;
+
+        caption
+        {
+            color: @today-color;
+            padding: 0;
+            padding-left: 12px;
+            margin: 0;
+
+            font-size: 19px;
+            line-height: 40px;
+            height: 40px;
+        }
+
+        td
+        {
+            text-align: center;
+            border-bottom: 1px solid @border-color;
+
+            &.weekday-6, &.weekday-7
+            {
+                color: @secondary-color;
+            }
+
+            span
+            {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        thead
+        {
+            tr
+            {
+                height: 24px;
+                font-size: @font-size-small;
+            }
+        }
+
+        tbody
+        {
+            tr
+            {
+                td
+                {
+                    span
+                    {
+                        border-radius: 50%;
+                        transition: background-color 0.3s;
+                    }
+                }
+
+                td.today
+                {
+                    span
+                    {
+                        color: @today-color;
+                        font-weight: bold;
+                    }
+
+                    &.active
                     {
                         span
                         {
-                            color: @today-color;
-                            font-weight: bold;
-                        }
-
-                        &.active
-                        {
-                            span
-                            {
-                                color: white !important;
-                                background-color: @today-color !important;
-                            }
+                            color: white !important;
+                            background-color: @today-color !important;
                         }
                     }
+                }
 
-                    td.active
+                td.active
+                {
+                    span
                     {
-                        span
-                        {
-                            color: white;
-                            font-weight: bold;
-                            background-color: #222;
-                        }
+                        color: white;
+                        font-weight: bold;
+                        background-color: #222;
                     }
                 }
             }
