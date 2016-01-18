@@ -1,7 +1,7 @@
 {
     db: {
         mongodb: {
-            url: "mongodb://b49880f2-bcd7-4bb4-ba24-09011c6c917f:FRZ3YQZ4OmkjOWtUHKfYhQ@10.9.58.169:27017/b3fb3d89-f73a-4ffa-8763-ff312e5cd6bb"
+            url: "VCAP_SERVICES"
         }
     }
 }

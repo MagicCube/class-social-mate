@@ -9,7 +9,20 @@ import Path from "path";
 import session from "express-session";
 import router from "./router";
 
-mongoose.connect(config.get("db.mongodb.url"));
+let mongoDbUrl = config.get("db.mongodb.url");
+if (mongoDbUrl === "VCAP_SERVICES" && process.env.VCAP_SERVICES)
+{
+    try
+    {
+        mongoDbUrl = JSON.parse(process.env.VCAP_SERVICES).mongodb[0].credentials.uri;
+    }
+    catch (e)
+    {
+
+    }
+}
+
+mongoose.connect(mongoDbUrl);
 
 // Express
 const app = express();
@@ -22,7 +35,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({
-        url: config.get("db.mongodb.url"),
+        url: mongoDbUrl,
         touchAfter: 24 * 3600 // time period in seconds
     })
 }));
