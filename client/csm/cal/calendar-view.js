@@ -75,11 +75,11 @@ export default class CalendarView extends mx.View
                 let x = e.deltaX + panState.initialX;
                 if (this.date.getMonth() === this._minDate.getMonth() && x > 0)
                 {
-                    x = Math.sqrt(e.deltaX * 20) + panState.initialX
+                    x = Math.sqrt(e.deltaX * 20) + panState.initialX;
                 }
                 if (this.date.getMonth() === this._maxDate.getMonth() && x < 0)
                 {
-                    x = -Math.sqrt(Math.abs(e.deltaX) * 20) + panState.initialX
+                    x = -Math.sqrt(Math.abs(e.deltaX) * 20) + panState.initialX;
                 }
                 panState.x = x;
                 this.$container.css({ x });
@@ -89,6 +89,16 @@ export default class CalendarView extends mx.View
                 hammer.off("panend");
                 hammer.off("panmove");
                 let x = panState.x;
+
+                if (this.date.getMonth() === this._minDate.getMonth() && x > 0)
+                {
+                    x = 0;
+                }
+                if (this.date.getMonth() === this._maxDate.getMonth() && x < 0)
+                {
+                    x = 0;
+                }
+
                 if (x > this.width() / 5)
                 {
                     x = this.width();
