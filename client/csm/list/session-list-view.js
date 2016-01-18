@@ -33,6 +33,7 @@ export default class SessionListView extends ListView
         if (this.grouped && this.items.length === 0)
         {
             this.appendGroup(date);
+            this.$ul.append("<li class=no-session >没有课程安排</li>");
         }
     }
 
