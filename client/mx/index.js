@@ -8,13 +8,17 @@ import "./javascript-extensions";
 import Event from "./event/event";
 import EventProvider from "./event/event-provider";
 import Component from "./component/component";
-import View from "./view/view"
-import Application from "./app/application"
+import View from "./view/view";
+import Application from "./app/application";
+import Route from "./route/route";
+import Router from "./route/router";
 
 export {
     Event,
     EventProvider,
     Component,
     View,
-    Application
+    Application,
+    Route,
+    Router
 };
