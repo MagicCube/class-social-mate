@@ -86,6 +86,7 @@ function _transformUserToJSON(user)
 function _responseSuccessWith(req, res, user)
 {
     console.info(`User authenticated: ${user.name}, ${JSON.stringify(user)})`);
+    _destroyAuth(req);
     req.session.user = _transformUserToJSON(user);
     const redirectUrl = req.query.redirect ? req.query.redirect : "/";
     req.session.authErrorMessage = null;
@@ -116,6 +117,15 @@ function _getAuth(req)
         authMap.set(sid, new Auth());
     }
     return authMap.get(sid);
+}
+
+function _destroyAuth(req)
+{
+    const sid = req.session.id;
+    if (authMap.has(sid))
+    {
+        authMap.delete(sid);
+    }
 }
 
 export default router;
