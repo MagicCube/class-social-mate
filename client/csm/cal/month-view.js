@@ -1,3 +1,5 @@
+import serviceClient from "../service/service-client";
+
 export default class MonthView extends mx.View
 {
     _date = null;
@@ -85,7 +87,7 @@ export default class MonthView extends mx.View
 
         // Reset
         $tbody.find("td").attr("id", null).data("date", null).removeClass("active today");
-        $tbody.find("span").text("");
+        $tbody.find("span").text("").css("borderColor", "");
 
         $table.children("caption").text($format(date, "yyyy年M月"));
 
@@ -115,5 +117,26 @@ export default class MonthView extends mx.View
         {
             $tbody.find("td#date-" + today.getDate()).addClass("today");
         }
+
+        this._markSessions();
+    }
+
+    _markSessions()
+    {
+        const sessionsOfMonth = serviceClient.months[$format(this.date, "yyyy-MM")];
+        if (sessionsOfMonth)
+        {
+            sessionsOfMonth.forEach(session => {
+                this._markSession(session);
+            });
+        }
+    }
+
+    _markSession(session)
+    {
+        const $cell = this._$table.find("td#date-" + session.startTime.getDate() + " span")
+        $cell.css({
+            borderColor: serviceClient.courses[session.courseId].color
+        });
     }
 }

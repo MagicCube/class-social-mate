@@ -261,9 +261,17 @@ export default class CalendarView extends mx.View
 
     _renderSelection()
     {
-        this._monthView.$(".active").removeClass("active");
-        this._monthViewLeft.$(".active").removeClass("active");
-        this._monthViewRight.$(".active").removeClass("active");
-        this._monthView.$("#date-" + this.selection.getDate()).addClass("active");
+        this._monthView.$(".active").removeClass("active").children("span").css("backgroundColor", "");
+        this._monthViewLeft.$(".active").removeClass("active").children("span").css("backgroundColor", "");
+        this._monthViewRight.$(".active").removeClass("active").children("span").css("backgroundColor", "");
+
+        const $cell = this._monthView.$("#date-" + this.selection.getDate());
+        $cell.addClass("active");
+        const $span = $cell.children("span");
+        const borderColor = $span.css("borderColor");
+        if (borderColor && borderColor !== "white" && borderColor !== "rgb(255, 255, 255)")
+        {
+            $span.css("backgroundColor", borderColor);
+        }
     }
 }
