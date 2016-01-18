@@ -8,14 +8,6 @@ const router = Router();
 
 router.all("*", function(req, res, next) {
     req.user = req.session.user ? req.session.user : null;
-
-    const devMode = (process.env.NODE_ENV !== "production");
-    if (devMode && !req.user)
-    {
-        req.user = {"id":"5695032eae80543d19944ce8","name":"李昕","schoolNum":"MF1402157","selectedCourseIds":["c109","c110","c107","c111","c106","c121","c120"]};
-    }
-
-
     next();
 });
 

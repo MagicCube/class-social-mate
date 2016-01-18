@@ -1,9 +1,13 @@
 import TabView from "./tab-view";
 
+import UserNavListView from "../list/user-nav-list-view";
+
 import serviceClient from "../service/service-client";
 
 export default class UserPage extends TabView
 {
+    _userNavListView = null;
+
     constructor()
     {
         super("userTab", {
@@ -12,6 +16,12 @@ export default class UserPage extends TabView
         });
         this.addClass("user-tab");
 
+        this._initBanner();
+        this._initUserNavListView();
+    }
+
+    _initBanner()
+    {
         const $banner = $(`<div class=banner>
             <div class=avatar/>
             <div class=name>${$user.name.length === 2 ? ($user.name[0] + " " + $user.name[1]) : $user.name}</div>
@@ -21,6 +31,7 @@ export default class UserPage extends TabView
                 <a class=sessions><span class=figure></span>课时</a>
             </div>
         </div>`);
+        this.$container.append($banner);
         const hammer = new Hammer($banner[0], {
             recognizers: [
                 [Hammer.Tap]
@@ -49,7 +60,12 @@ export default class UserPage extends TabView
                 }
             }
         });
-        this.$container.append($banner);
+    }
+
+    _initUserNavListView()
+    {
+        this._userNavListView = new UserNavListView("userNavList");
+        this.addSubview(this._userNavListView);
     }
 
     activate()

@@ -1,0 +1,63 @@
+.user-nav-list
+{
+    ul
+    {
+        display: block;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top: 20px;
+
+        li
+        {
+            display: block;
+            border-bottom: 1px solid @border-color;
+            border-left: 1px solid @border-color;
+            border-right: 1px solid @border-color;
+            height: 45px;
+            line-height: 45px;
+            background-color: white;
+            margin-left: 15px;
+            margin-right: 15px;
+
+            &:first-child
+            {
+                border-radius: 5px 5px 0 0;
+                border-top: 1px solid @border-color;
+            }
+            &:last-child
+            {
+                border-radius: 0 0 5px 5px;
+            }
+
+            a
+            {
+                display: block;
+                padding-left: 14%;
+            }
+
+            a, a.active, a:active
+            {
+                color: @strong-color;
+                text-decoration: none;
+            }
+
+
+
+
+            &.logoff
+            {
+                margin-left: 25px;
+                margin-right: 25px;
+                border: none;
+                a
+                {
+                    padding-left: 0;
+                    color: white;
+                    background: #ff3b30;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

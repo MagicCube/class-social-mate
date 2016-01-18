@@ -67,7 +67,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.all("/logout", (req, res) => {
+router.all("/logoff", (req, res) => {
     req.session.destroy();
     res.redirect("/");
 });

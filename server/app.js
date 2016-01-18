@@ -15,7 +15,17 @@ mongoose.connect(config.get("db.mongodb.url"));
 const app = express();
 
 // Session
-app.use(session({ secret: "mate-social-class", cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 }}))
+const MongoStore = require("connect-mongo")(session);
+app.use(session({
+    secret: "mate-social-class",
+    cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 },
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({
+        url: config.get("db.mongodb.url"),
+        touchAfter: 24 * 3600 // time period in seconds
+    })
+}));
 
 // Static files
 app.use(express.static("server/public", { maxAge: "365 days" }));
