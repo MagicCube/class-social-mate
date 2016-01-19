@@ -35,11 +35,8 @@ if (!devMode)
 {
     plugins.push(function() {
         this.plugin("done", function(stats) {
-
-            console.log("\n\nDone\n\n");
-
             fs.writeFileSync(
-                path.join(__dirname, "assets.json"),
+                path.join(__dirname, "./server/public/assets/build.json"),
                 JSON.stringify({
                     hash: stats.hash,
                     time: new Date().toString(),

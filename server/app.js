@@ -45,7 +45,7 @@ let assetsPath = "/assets";
 app.use(express.static("server/public", { maxAge: "365 days" }));
 if (!devMode)
 {
-    const assets = require("../assets");
+    const assets = require("./public/assets/build.json");
     assetsPath = "/assets/" + assets.hash;
     app.use(assetsPath, express.static("server/public/assets", { maxAge: "365 days" }));
 }
