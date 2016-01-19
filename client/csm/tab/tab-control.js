@@ -17,6 +17,20 @@ export default class TabControl extends mx.View
         this.$element.append(this._$header);
         this._$tabList = $("<ul/>");
         this._$header.append(this._$tabList);
+
+        this.$container = $("<main/>");
+        this.$element.append(this.$container);
+
+        this._initHammer();
+
+        if (tabs)
+        {
+            this.addSubviews(tabs);
+        }
+    }
+
+    _initHammer()
+    {
         const hammer = new Hammer(this._$tabList[0], {
             recognizers: [
                 [Hammer.Tap]
@@ -41,14 +55,6 @@ export default class TabControl extends mx.View
                 this._tabListItem_onclick($li);
             }
         });
-
-        this.$container = $("<main/>");
-        this.$element.append(this.$container);
-
-        if (tabs)
-        {
-            this.addSubviews(tabs);
-        }
     }
 
 
