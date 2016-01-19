@@ -18,6 +18,7 @@ export default class Application extends mx.Application
         super(id);
 
         this.addClass("csm-app");
+
         this._initTabControl();
 
         serviceClient.load(err => {
@@ -46,6 +47,9 @@ export default class Application extends mx.Application
     run()
     {
         super.run();
-        this._tabControl.selectedIndex = 1;
+
+        mx.route("/", () => {
+            this._tabControl.selectedIndex = 0;
+        });
     }
 }

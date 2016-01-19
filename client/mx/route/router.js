@@ -3,26 +3,36 @@ import Route from "./route";
 export default class Router
 {
     _routes = [];
+    _path = null;
 
     constructor()
     {
 
     }
 
+    get path()
+    {
+        return this._path;
+    }
+
     route(pattern, handler)
     {
-        if (arguments.length === 0)
+        if (arguments.length !== 2)
         {
-            throw new Error("route() must have at least one argument.");
+            throw new Error("route(pattern, handler) must have at least one argument.");
         }
-        if (arguments.length === 2 && typeof(handler) === "function")
+
+        if (typeof(handler) === "function")
         {
-            this._registerRoute(pattern, handler);
+            return this.registerRoute(pattern, handler);
         }
-        else if (arguments.length === 1)
+        else if (handler instanceof Router)
         {
-            const path = arguments[0];
-            this._switchRoute(path);
+            return this.use(pattern, handler);
+        }
+        else
+        {
+            throw new Error("The second argument of route(pattern, handler) must be a function or an instance of Router.");
         }
     }
 
@@ -37,29 +47,41 @@ export default class Router
             throw new Error("The second argument of use(pattern, router) must be an instance of Router.");
         }
 
-        this._registerRoute(pattern, context => {
+        return this.registerRoute(pattern, context => {
             const url = context.route.toUrl(context.params);
-            router.route(context.path.substr(url.length - 1));
+            router.navigateTo(context.path.substr(url.length - 1));
         });
     }
 
-    _registerRoute(pattern, handler)
+    trigger(path)
     {
-        const route = new Route(pattern, handler);
-        this._routes.push(route);
-    }
-
-    _switchRoute(path)
-    {
-        for (let i = 0; i < this._routes.length; i++)
+        for (let i = this._routes.length - 1; i >= 0; i--)
         {
             const route = this._routes[i];
             const params = route.match(path);
             if (params)
             {
                 route.trigger(path, params);
-                return;
+                return true;
             }
         }
+        return false;
+    }
+
+    navigateTo(path)
+    {
+        const result = this.trigger(path);
+        if (result)
+        {
+            this._path = path;
+        }
+        return result;
+    }
+
+    registerRoute(pattern, handler)
+    {
+        const route = new Route(pattern, handler);
+        this._routes.push(route);
+        return route;
     }
 }
