@@ -82,11 +82,17 @@ export default class Application extends mx.Application
             right: 0,
             bottom: 0
         };
+        scene.css({
+            position: "fixed",
+            zIndex: 9999,
+            x: window.innerWidth
+        });
         this.addSubview(scene);
         this._sceneStack.push(scene);
         this._tabControl.hideHeader();
 
         scene.activate(args);
+        scene.transit({ x: 0 }, "fast");
     }
 
     popScene()

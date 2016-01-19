@@ -31,6 +31,9 @@ class ServiceClient extends mx.Component
                 this._courses = res.result;
 
                 this.courses.forEach((course, i) => {
+                    let days = [];
+                    let sessionLeft = 0;
+
                     course.color = this._colors[i];
                     this.courses[course.id] = course;
                     course.sessions.forEach(session => {
@@ -46,8 +49,43 @@ class ServiceClient extends mx.Component
                             month = [];
                             this.months[key] = month;
                         }
+
+                        const day = session.startTime.getDay();
+                        if (!days.contains(day))
+                        {
+                            days.push(day);
+                        }
+                        if (Date.now() < session.startTime )
+                        {
+                            sessionLeft++;
+                        }
+
                         month.push(session);
                     });
+
+                    days.sort((a, b) => {
+                        if (a === 0)
+                        {
+                            a = 7;
+                        }
+                        if (b === 0)
+                        {
+                            b = 7;
+                        }
+                        return a - b;
+                    });
+
+                    days = days.map((day, i) => "周" + ["日", "一", "二", "三", "四", "五", "六"][day]);
+
+                    if (days.length === 1)
+                    {
+                        if (course.sessions[0].startTime.getHours() > 17)
+                        {
+                            days[0] = days[0] + "晚";
+                        }
+                    }
+                    course.days = days;
+                    course.sessionLeft = sessionLeft;
                 });
 
                 this.sessions.sort((a, b) => {

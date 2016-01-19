@@ -1,4 +1,52 @@
 .course-detail.mx-scene
 {
     background: @background-color;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+
+    header
+    {
+        position: relative;
+        margin-bottom: 25px;
+        padding-left: 15px;
+
+        .tag
+        {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+        }
+
+        h1.name
+        {
+            font-size: 24px;
+            line-height: 32px;
+        }
+
+        .teachers
+        {
+            font-weight: bold;
+            color: @strong-color;
+            line-height: 22px;
+        }
+
+        .room
+        {
+            color: @secondary-color;
+            font-size: @font-size-small;
+            line-height: 22px;
+        }
+
+        .session-left
+        {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            color: @secondary-color;
+            font-size: @font-size-small;
+        }
+    }
 }
