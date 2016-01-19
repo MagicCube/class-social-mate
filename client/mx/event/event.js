@@ -22,8 +22,8 @@ export default class Event
     trigger(source, args = {})
     {
         const e = {
+            type: this.type,
             source,
-            type,
             args,
             defaultPrevented: false,
             preventDefault: function()
