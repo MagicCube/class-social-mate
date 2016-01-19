@@ -73,8 +73,8 @@ export default class ListView extends mx.View
 
     getItemTemplate()
     {
-        const $template = $(`<li class=item><div class=tag /><h1 class=title /></li>`);
-        $template.append(this.getItemDescriptionTemplate());
+        const $template = $(`<li class=item><a><div class=tag /><h1 class=title /></a></li>`);
+        $template.children("a").append(this.getItemDescriptionTemplate());
         return $template;
     }
 

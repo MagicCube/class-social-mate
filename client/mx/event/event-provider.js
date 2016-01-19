@@ -66,6 +66,7 @@ export default class EventProvider
         if (e)
         {
             e.trigger(this, args);
+            return e;
         }
         else
         {

@@ -1,7 +1,7 @@
 .list
 {
     background-color: @background-color;
-    
+
     > ul
     {
         display: block;
@@ -12,13 +12,16 @@
 
         > li
         {
-            position: relative;
             display: block;
+            position: relative;
+
+            & > a
+            {
+                display: block;
+            }
 
             &.item
             {
-                color: @secondary-color;
-                font-size: @font-size-small;
                 border-bottom: 1px solid @border-color;
                 margin-left: 12px;
                 margin-right: 12px;
@@ -26,6 +29,13 @@
                 padding-right: 12px;
                 padding-top: 10px;
                 padding-bottom: 10px;
+
+                > a
+                {
+                    display: block;
+                    color: @secondary-color;
+                    font-size: @font-size-small;
+                }
 
                 .tag
                 {
@@ -63,12 +73,16 @@
                 height: 32px;
                 line-height: 32px;
                 padding-left: 10px;
-                color: black;
-                font-size: 15px;
-                font-weight: bold;
                 background: #eee;
                 border-top: 1px solid @border-color;
                 border-bottom: 1px solid @border-color;
+
+                a
+                {
+                    color: black;
+                    font-size: 15px;
+                    font-weight: bold;
+                }
             }
         }
     }
