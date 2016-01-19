@@ -9,6 +9,7 @@ import Event from "./event/event";
 import EventProvider from "./event/event-provider";
 import Component from "./component/component";
 import View from "./view/view";
+import Scene from "./scn/scene";
 import Application from "./app/application";
 import Router from "./route/router";
 import defaultRouter from "./route";
@@ -19,6 +20,7 @@ const mx = {
     EventProvider,
     Component,
     View,
+    Scene,
     Application,
     Router,
 

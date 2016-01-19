@@ -69,8 +69,10 @@ export default class CourseListView extends ListView
             }
         }
 
-        $li.children(".tag").css("background-color", course.color);
-        $li.children(".title").toggleClass("small", course.name.length > 30).text(course.name);
+        $li.children("a").attr("href", "#/course/" + course.id);
+
+        $li.find(".tag").css("background-color", course.color);
+        $li.find(".title").toggleClass("small", course.name.length > 30).text(course.name);
         $li.find(".room").text(course.room + " 教室");
         $li.find(".days").text(days.join(", "));
         $li.find(".session-left").text(sessionLeft > 0 ? ("剩余 " + sessionLeft + " 课时") : "已结课");

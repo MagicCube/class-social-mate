@@ -4,17 +4,20 @@ export default class TabControl extends mx.View
 {
     _selection = null;
 
+    _$header = null;
+    _$tabList = null;
+
     constructor(id, tabs, selectedIndex)
     {
         super(id);
 
         this.addClass("tab-control");
 
-        const $tabHeader = $("<header>");
-        this.$element.append($tabHeader);
-        this.$tabList = $("<ul/>");
-        $tabHeader.append(this.$tabList);
-        const hammer = new Hammer(this.$tabList[0], {
+        this._$header = $("<header>");
+        this.$element.append(this._$header);
+        this._$tabList = $("<ul/>");
+        this._$header.append(this._$tabList);
+        const hammer = new Hammer(this._$tabList[0], {
             recognizers: [
                 [Hammer.Tap]
             ]
@@ -38,7 +41,6 @@ export default class TabControl extends mx.View
                 this._tabListItem_onclick($li);
             }
         });
-        //this.$tabList.on("tap", "li", this._tabListItem_onclick.bind(this));
 
         this.$container = $("<main/>");
         this.$element.append(this.$container);
@@ -80,7 +82,7 @@ export default class TabControl extends mx.View
         {
             throw new Error("TabControl only accept TabView as its subview.");
         }
-        this.$tabList.append(view.$tabHeader);
+        this._$tabList.append(view.$tabHeader);
         view.hide();
         super.addSubview(view);
     }
@@ -110,12 +112,12 @@ export default class TabControl extends mx.View
 
     showHeader()
     {
-        this.$tabHeader.show("fast");
+        this._$header.show("fast");
     }
 
     hideHeader()
     {
-        this.$tabHeader.hide("fast");
+        this._$header.hide("fast");
     }
 
 

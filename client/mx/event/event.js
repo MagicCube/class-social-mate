@@ -1,19 +1,40 @@
 export default class Event
 {
+    _type = null;
+    _listeners = null;
+
     constructor(type)
     {
-        this.type = type;
-        this.listeners = [];
-        this.defaultPrevented = false;
+        this._type = type;
+        this._listeners = [];
+    }
+
+    get type()
+    {
+        return this._type;
+    }
+
+    get listeners()
+    {
+        return this._listeners;
     }
 
     trigger(source, args = {})
     {
-        args.source = source;
-        args.type = this.type;
+        const e = {
+            source,
+            type,
+            args,
+            defaultPrevented: false,
+            preventDefault: function()
+            {
+                this.defaultPrevented = true;
+            }
+        };
         this.listeners.forEach(listener => {
-            listener(args);
+            listener(e);
         });
+        return e;
     }
 
     hasListener(listener)

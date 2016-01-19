@@ -43,7 +43,7 @@ export default class SessionListView extends ListView
     getItemTemplate()
     {
         const $li = super.getItemTemplate();
-        $li.append("<div class=time ><div class=start /><div class=end /></div>");
+        $li.children("a").append("<div class=time ><div class=start /><div class=end /></div>");
         return $li;
     }
 
@@ -66,11 +66,11 @@ export default class SessionListView extends ListView
             }
         }
 
-        $li.children(".title").toggleClass("small", course.name.length > 30).text(course.name);
-        $li.children(".tag").css("background-color", course.color);
+        $li.find(".title").toggleClass("small", course.name.length > 30).text(course.name);
+        $li.find(".tag").css("background-color", course.color);
         $li.find(".time > .start").text($format(session.startTime, "HH:mm"));
         $li.find(".time > .end").text($format(session.endTime, "HH:mm"));
-        $li.children(".desc").text(course.room + " 教室");
+        $li.find(".desc").text(course.room + " 教室");
 
         return $li;
     }
@@ -90,9 +90,9 @@ export default class SessionListView extends ListView
     appendGroup(date)
     {
         const dateString = $format(date, "M月d日");
-        const $dateLi = $("<li class='group'>");
+        const $dateLi = $("<li class='group'><a/></li>");
         $dateLi.attr("id", "date-" + dateString);
-        $dateLi.text(dateString + " " + date.getLocaleDay());
+        $dateLi.children("a").text(dateString + " " + date.getLocaleDay());
         this.$ul.append($dateLi);
     }
 }
