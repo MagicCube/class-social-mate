@@ -114,6 +114,11 @@ export default class View extends Component
             throw new Error("view must be an instance of View.");
         }
 
+        if (this.subviews.indexOf(view) !== -1)
+        {
+            return;
+        }
+
         if (view.parent !== null)
         {
             view.removeFromParent();
