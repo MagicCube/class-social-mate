@@ -1,6 +1,16 @@
-const devMode = (process.env.NODE_ENV !== "production");
+var devMode = (process.env.NODE_ENV !== "production");
+if (devMode)
+{
+    const arg = process.argv[process.argv.length - 1];
+    if (arg && arg.trim() === "-p")
+    {
+        devMode = false;
+    }
+}
 
+const fs = require("fs");
 const path = require("path");
+
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
@@ -20,9 +30,24 @@ const plugins = [
     new ExtractTextPlugin("./[name]/res/[name].css")
 ];
 
+
 if (!devMode)
 {
-    plugins.push(new webpack.optimize.UglifyJsPlugin());
+    plugins.push(function() {
+        this.plugin("done", function(stats) {
+
+            console.log("\n\nDone\n\n");
+
+            fs.writeFileSync(
+                path.join(__dirname, "assets.json"),
+                JSON.stringify({
+                    hash: stats.hash,
+                    time: new Date().toString(),
+                    timestamp: new Date() * 1
+                })
+            );
+        });
+    });
 }
 
 
@@ -42,7 +67,7 @@ module.exports = {
     output: {
         // webpack-dev-server will server output.path as output.publicPath
         path: path.join(__dirname, "./server/public/assets/"),
-        publicPath: "/assets/",
+        publicPath: "/assets",
         filename: "[name]/[name].js",
         chunkFilename: "[id]/[id].js"
     },

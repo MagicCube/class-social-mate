@@ -1,7 +1,7 @@
 extends ../template/basic.jade
 
 append stylesheets
-    link(rel="stylesheet", href="/assets/csm/res/csm.css")
+    link(rel="stylesheet", href=app.get("assets path") + "/csm/res/csm.css")
 
 append scripts
-    script(src="/assets/csm/csm.js")
+    script(src=app.get("assets path") + "/csm/csm.js")

@@ -52,7 +52,6 @@ export default class Application extends mx.Application
     _initRouting()
     {
         mx.route("/", context => {
-            console.log("[Routing] path=/");
             this.popScene();
         });
         mx.route("/course/:id", context => {

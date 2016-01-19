@@ -5,6 +5,7 @@ logs
 # Temp
 temp
 server/public/assets
+assets.json
 
 # DB
 db

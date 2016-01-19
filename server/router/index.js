@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import api from "../api";
+import app from "../app";
 import auth from "./auth";
 import ensureLogin from "./auth/ensure-login"
 
@@ -19,7 +20,7 @@ router.get("/", ensureLogin, (req, res) => {
     const selectedCourses = req.user.selectedCourseIds.map(id => {
         return courses[id];
     });
-    res.render("index", { user: req.user, courses: selectedCourses });
+    res.render("index", { user: req.user, courses: selectedCourses, app: app });
 });
 
 export default router;

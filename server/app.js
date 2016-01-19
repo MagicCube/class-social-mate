@@ -41,7 +41,15 @@ app.use(session({
 }));
 
 // Static files
+let assetsPath = "/assets";
 app.use(express.static("server/public", { maxAge: "365 days" }));
+if (!devMode)
+{
+    const assets = require("../assets");
+    assetsPath = "/assets/" + assets.hash;
+    app.use(assetsPath, express.static("server/public/assets", { maxAge: "365 days" }));
+}
+app.set("assets path", assetsPath);
 
 // Client assets
 if (devMode)

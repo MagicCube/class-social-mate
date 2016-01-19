@@ -1,7 +1,0 @@
-{
-    db: {
-        mongodb: {
-            url: "VCAP_SERVICES"
-        }
-    }
-}
