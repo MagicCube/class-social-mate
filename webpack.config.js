@@ -64,7 +64,7 @@ module.exports = {
     output: {
         // webpack-dev-server will server output.path as output.publicPath
         path: path.join(__dirname, "./server/public/assets/"),
-        publicPath: "/assets",
+        publicPath: "/assets/",
         filename: "[name]/[name].js",
         chunkFilename: "[id]/[id].js"
     },
@@ -86,7 +86,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg)$/,
-                loader: "url-loader?limit=8192"
+                loader: "file-loader"
             }
         ]
     },
