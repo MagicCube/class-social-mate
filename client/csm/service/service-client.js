@@ -30,6 +30,8 @@ class ServiceClient extends mx.Component
             {
                 this._courses = res.result;
 
+                const now = new Date();
+
                 this.courses.forEach((course, i) => {
                     let days = [];
                     let sessionLeft = 0;
@@ -55,9 +57,14 @@ class ServiceClient extends mx.Component
                         {
                             days.push(day);
                         }
-                        if (Date.now() < session.startTime )
+                        if (now < session.startTime )
                         {
+                            session.past = false;
                             sessionLeft++;
+                        }
+                        else
+                        {
+                            session.past == true;
                         }
 
                         month.push(session);

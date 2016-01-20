@@ -13,6 +13,12 @@
             border-top: 1px solid @border-color;
             border-bottom: none;
 
+            &.past
+            {
+                background-image: url(images/session-list-past-bg.png);
+                background-repeat: repeat-x;
+            }
+
             &.first-of-date
             {
                 border-top: none;
@@ -73,6 +79,6 @@
 
     li.item-highlight
     {
-        background: rgba(66,57,241,.15);
+        background-color: rgba(66,57,241,.15);
     }
 }

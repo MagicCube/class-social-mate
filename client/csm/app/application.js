@@ -65,7 +65,7 @@ export default class Application extends mx.Application
     run()
     {
         super.run();
-        this._tabControl.selectedIndex = 1;
+        this._tabControl.selectedIndex = 0;
     }
 
 

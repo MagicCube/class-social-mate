@@ -60,6 +60,7 @@ export default class SessionListView extends ListView
         const $li = super.renderItem(session, i, context);
         const course = serviceClient.courses[session.courseId];
         $li.attr("id", session.id);
+        $li.toggleClass("past", session.past);
         const date = $format(session.startTime, "M月d日");
         if (this._grouped && (context.date === null || context.date !== date))
         {
