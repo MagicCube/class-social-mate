@@ -4,10 +4,7 @@ import courses from "../../course";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-    res.set({
-        "Cache-Control": "public, max-age=86400"
-    });
+router.get("/all", (req, res) => {
     res.send({
         result: courses
     });

@@ -1,6 +1,25 @@
 import { Router } from "express";
 
+import User from "../../model/user";
+
 const router = Router();
+
+router.get("/all", (req, res) => {
+    User.find({}, (err, users) => {
+        if (!err)
+        {
+            res.send({
+                result: users
+            });
+        }
+        else
+        {
+            res.send({
+                error: err
+            });
+        }
+    });
+});
 
 router.get("/current", (req, res) => {
     res.send({
