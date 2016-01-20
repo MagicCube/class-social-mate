@@ -9,6 +9,7 @@ router.get("/all", (req, res) => {
         if (!err)
         {
             res.send({
+                count: users.length,
                 result: users
             });
         }
