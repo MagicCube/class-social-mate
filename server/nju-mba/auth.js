@@ -43,6 +43,7 @@ export default class Auth
             return;
         }
 
+        console.log(`[${schoolNum}] User is now signing in...`);
         request.post({
             url: "http://njubs.nju.edu.cn/mba/login.php",
             headers: {
@@ -54,6 +55,8 @@ export default class Auth
         }, (err, res, body) => {
             if (!err && res.statusCode === 200)
             {
+                console.log(`[${schoolNum}] njubs.nju.edu.cn responsed back.`);
+
                 if (body.trim() !== "登录错误")
                 {
                     this.schoolNum = schoolNum;
@@ -66,22 +69,27 @@ export default class Auth
                             }
                             else
                             {
+                                console.error(`[${schoolNum}] Fail to fetch name from njubs.nju.edu.cn 1`);
                                 cb(new Error("登录失败，请检查学号、密码和验证码。"));
                             }
                         }
                         else
                         {
+                            console.error(`[${schoolNum}] Fail to fetch name from njubs.nju.edu.cn 2`);
                             cb(new Error("登录失败，请检查学号、密码和验证码。"));
                         }
                     });
                 }
                 else
                 {
+                    console.error(`[${schoolNum}] njubs.nju.edu.cn responsed with error: ${body.trim()}`);
                     cb(new Error("登录失败，请检查学号、密码和验证码。"));
                 }
             }
             else
             {
+                console.error(`[${schoolNum}] njubs.nju.edu.cn responsed with status ${res.statusCode}.`);
+                console.error(err);
                 cb(new Error("登录失败，请检查学号、密码和验证码。"));
             }
         });

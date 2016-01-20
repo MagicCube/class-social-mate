@@ -30,6 +30,7 @@ export default class Elective
             }
             else
             {
+                console.error(`[${this.auth.schoolNum}] Failed to load selected courses, njubs.nju.edu.cn responsed with status ${res.statusCode}.`);
                 cb(new Error("njubs.nju.edu.cn 站点没有返回正确信息。"));
             }
         });
@@ -53,6 +54,8 @@ export default class Elective
                 }
                 else
                 {
+                    console.error(`[${this.auth.schoolNum}] Failed to save selected courses. `);
+                    console.error(err);
                     cb(err);
                 }
             });
