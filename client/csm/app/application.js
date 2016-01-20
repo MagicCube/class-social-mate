@@ -65,7 +65,7 @@ export default class Application extends mx.Application
     run()
     {
         super.run();
-        this._tabControl.selectedIndex = 0;
+        this._tabControl.selectedIndex = 3;
     }
 
 
@@ -87,7 +87,7 @@ export default class Application extends mx.Application
         };
         scene.css({
             position: "fixed",
-            zIndex: 9999,
+            zIndex: 999,
             x: window.innerWidth
         });
         this.addSubview(scene);
