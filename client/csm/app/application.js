@@ -54,15 +54,18 @@ export default class Application extends mx.Application
         mx.route("/", context => {
             this.popScene();
         });
-        mx.route("/course/:id", context => {
-            this.pushCourseDetailScene(context.params);
+        mx.route("/course/:courseId", context => {
+            this.pushCourseDetailScene(context.params.courseId);
+        });
+        mx.route("/course/:courseId/:sessionId", context => {
+            this.pushCourseDetailScene(context.params.courseId, context.params.sessionId);
         });
     }
 
     run()
     {
         super.run();
-        this._tabControl.selectedIndex = 0;
+        this._tabControl.selectedIndex = 1;
     }
 
 
@@ -109,13 +112,15 @@ export default class Application extends mx.Application
     }
 
 
-    pushCourseDetailScene(course)
+    pushCourseDetailScene(courseId, sessionId)
     {
         if (this._courseDetailScene === null)
         {
             this._courseDetailScene = new CourseDetailScene("courseDetail");
         }
-
-        this.pushScene(this._courseDetailScene, course);
+        this.pushScene(this._courseDetailScene, {
+            course: serviceClient.courses[courseId],
+            session: sessionId ? serviceClient.sessions[sessionId] : null
+        });
     }
 }

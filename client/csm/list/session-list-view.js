@@ -6,13 +6,21 @@ export default class SessionListView extends ListView
 {
     _grouped = false;
 
-    constructor(id, grouped = false, clickable = false)
+    constructor(id, grouped = false, clickable = true)
     {
         super(id, clickable);
 
         this._grouped = grouped;
 
         this.addClass("session-list");
+
+        if (clickable)
+        {
+            this.on("itemclick", e => {
+                const session = e.item;
+                mx.route("/course/" + session.courseId + "/" + session.id);
+            });
+        }
     }
 
     get grouped()
@@ -94,5 +102,32 @@ export default class SessionListView extends ListView
         $dateLi.attr("id", "date-" + dateString);
         $dateLi.children("a").text(dateString + " " + date.getLocaleDay());
         this.$ul.append($dateLi);
+    }
+
+
+
+    highlight(session = null)
+    {
+        this.$element.removeClass("highlight");
+        this.$("li.item-highlight").removeClass("item-highlight").addClass("item");
+        if (session)
+        {
+            const $li = this.$("li.item#" + session.id);
+            if ($li.length === 1)
+            {
+                $li.removeClass("item").addClass("item-highlight");
+                this.$element.addClass("highlight");
+
+                const li = $li[0];
+                if (li.scrollIntoViewIfNeeded)
+                {
+                    $li[0].scrollIntoViewIfNeeded();
+                }
+                else
+                {
+                    li.scrollIntoView();
+                }
+            }
+        }
     }
 }

@@ -75,6 +75,10 @@ export default class Router
         {
             this._path = path;
         }
+        else
+        {
+            console.warn(`Can not navigate to "${path}". No route found for it.`);
+        }
         return result;
     }
 

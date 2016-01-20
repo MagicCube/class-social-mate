@@ -61,6 +61,10 @@ class HashRouter extends Router
                 }
             });
         }
+        else
+        {
+            console.warn(`Fail to navigate to "${path}". No route was found for this path.`);
+        }
         return result;
     }
 

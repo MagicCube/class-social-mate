@@ -4,7 +4,7 @@
     {
         overflow: hidden;
 
-        li.item
+        li.item, li.item-highlight
         {
             height: 55px;
             padding-left: 52px;
@@ -51,5 +51,28 @@
 
             color: @secondary-color;
         }
+    }
+}
+
+
+
+.session-list.highlight
+{
+    li.item
+    {
+        .tag
+        {
+            background: (@secondary-color + #222) !important;
+        }
+
+        .title, .time, .time .start, *
+        {
+            color: @secondary-color + #222;
+        }
+    }
+
+    li.item-highlight
+    {
+        background: rgba(66,57,241,.15);
     }
 }

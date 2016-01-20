@@ -39,8 +39,8 @@ class ServiceClient extends mx.Component
                     course.sessions.forEach(session => {
                         session.startTime = new Date(session.startTime);
                         session.endTime = new Date(session.endTime);
-                        this.sessions.add(session);
-                        this.sessions[session.id] = course;
+                        this.sessions.push(session);
+                        this.sessions[session.id] = session;
 
                         const key  = $format(session.startTime, "yyyy-MM");
                         let month = this.months[key];

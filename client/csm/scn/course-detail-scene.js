@@ -31,7 +31,7 @@ export default class CourseDetailScene extends mx.Scene
 
     _initSessionListView()
     {
-        this._sessionListView = new SessionListView("sessionList", true);
+        this._sessionListView = new SessionListView("sessionList", true, false);
         this.addSubview(this._sessionListView);
     }
 
@@ -46,9 +46,11 @@ export default class CourseDetailScene extends mx.Scene
         this.render();
     }
 
-    activate(course)
+    activate(args)
     {
-        this.course = serviceClient.courses[course.id];
+        this.course = args.course;
+        this._sessionListView.highlight(args.session);
+        console.log(args);
     }
 
 

@@ -9,10 +9,14 @@ export default class CourseListView extends ListView
         super(id, clickable);
 
         this.addClass("course-list");
-        this.on("itemclick", e => {
-            const course = e.item;
-            mx.route("/course/" + course.id);
-        });
+
+        if (clickable)
+        {
+            this.on("itemclick", e => {
+                const course = e.item;
+                mx.route("/course/" + course.id);
+            });
+        }
     }
 
 
