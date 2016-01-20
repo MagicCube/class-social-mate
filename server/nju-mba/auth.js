@@ -116,9 +116,15 @@ export default class Auth
                 else
                 {
                     console.error(`[${this.schoolNum}] Fail to fetch name from njubs.nju.edu.cn 1`);
-                    console.error(err);
                     console.error(body);
-                    cb(new Error("登录失败，请检查学号、密码和验证码。"));
+                    if (body.indexOf("黑客") !== -1)
+                    {
+                        cb(new Error("由于南大商学院官网启用了网络安全措施，本应用暂时无法登录。"));
+                    }
+                    else
+                    {
+                        cb(new Error("登录失败，请检查学号、密码和验证码。"));
+                    }
                 }
             }
             else
