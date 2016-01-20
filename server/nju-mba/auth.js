@@ -69,13 +69,12 @@ export default class Auth
                             }
                             else
                             {
-                                console.error(`[${schoolNum}] Fail to fetch name from njubs.nju.edu.cn 1`);
+                                console.error(`[${schoolNum}] Fail to fetch name from njubs.nju.edu.cn 0`);
                                 cb(new Error("登录失败，请检查学号、密码和验证码。"));
                             }
                         }
                         else
                         {
-                            console.error(`[${schoolNum}] Fail to fetch name from njubs.nju.edu.cn 2`);
                             cb(new Error("登录失败，请检查学号、密码和验证码。"));
                         }
                     });
@@ -116,11 +115,17 @@ export default class Auth
                 }
                 else
                 {
+                    console.error(`[${this.schoolNum}] Fail to fetch name from njubs.nju.edu.cn 1`);
+                    console.error(err);
+                    console.error(body);
                     cb(new Error("登录失败，请检查学号、密码和验证码。"));
                 }
             }
             else
             {
+                console.error(`[${this.schoolNum}] Fail to fetch name from njubs.nju.edu.cn 2`);
+                console.error(err);
+                console.error(body);
                 cb(new Error("登录失败，请检查学号、密码和验证码。"));
             }
         });
