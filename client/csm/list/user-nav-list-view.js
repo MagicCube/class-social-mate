@@ -10,13 +10,10 @@ export default class UserNavListView extends mx.View
 
         this.$container.append(`
             <ul>
+                <li id="refresh"><a><span class="icon glyphicon glyphicon-refresh" style="color:rgb(70,128,238);"/><span class="title">更新</span></a></li>
                 <li id="fav"><a><span class="icon glyphicon glyphicon-star" style="color:rgb(217,187,30);"/><span class="title">收藏本应用</span></a></li>
                 <li id="share"><a><span class="icon glyphicon glyphicon-share" style="color:rgb(43,119,56);"/><span class="title">分享本应用</span></a></li>
                 <li data-toggle="modal", data-target="#rewardDialog"><a><span class="icon glyphicon glyphicon-bookmark" style="color:rgb(189,53,53);"/><span class="title">打赏开发者</span></a></li>
-            </ul>
-
-            <ul>
-                <li id="refresh"><a><span class="title">刷新</span></a></li>
             </ul>
 
             <ul>
