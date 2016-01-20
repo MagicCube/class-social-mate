@@ -64,7 +64,7 @@ class ServiceClient extends mx.Component
                         }
                         else
                         {
-                            session.past == true;
+                            session.past = true;
                         }
 
                         month.push(session);
