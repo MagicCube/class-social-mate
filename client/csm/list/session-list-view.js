@@ -6,9 +6,9 @@ export default class SessionListView extends ListView
 {
     _grouped = false;
 
-    constructor(id, grouped = false)
+    constructor(id, grouped = false, clickable = false)
     {
-        super(id);
+        super(id, clickable);
 
         this._grouped = grouped;
 

@@ -2,6 +2,14 @@
 {
     background-color: @background-color;
 
+    &.clickable
+    {
+        > ul > li:active
+        {
+            background-color: @active-background-color;
+        }
+    }
+
     > ul
     {
         display: block;
@@ -14,11 +22,6 @@
         {
             display: block;
             position: relative;
-
-            &:active
-            {
-                background-color: @active-background-color;
-            }
 
             & > a
             {

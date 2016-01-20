@@ -1,5 +1,7 @@
 export default class ListView extends mx.View
 {
+    _clickable = false;
+
     _items = null;
 
     _$ul = null;
@@ -7,14 +9,20 @@ export default class ListView extends mx.View
 
     onitemclick = null;
 
-    constructor(id)
+    constructor(id, clickable = false)
     {
         super(id);
 
         this.addClass("list");
 
         this._initUl();
-        this._initHammer();
+
+        this._clickable = clickable;
+        if (this._clickable)
+        {
+            this.addClass("clickable");
+            this._initHammer();
+        }
     }
 
 

@@ -4,11 +4,9 @@ import ListView from "./list-view";
 
 export default class CourseListView extends ListView
 {
-    _animating = false;
-
-    constructor(id)
+    constructor(id, clickable = true)
     {
-        super(id);
+        super(id, clickable);
 
         this.addClass("course-list");
         this.on("itemclick", e => {
