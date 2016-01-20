@@ -5,15 +5,48 @@ export default class ListView extends mx.View
     _$ul = null;
     _$itemTemplate = null;
 
+    onitemclick = null;
+
     constructor(id)
     {
         super(id);
 
         this.addClass("list");
 
+        this._initUl();
+        this._initHammer();
+    }
+
+
+
+
+    _initUl()
+    {
         this._$ul = $("<ul/>");
         this.$container.append(this._$ul);
     }
+
+    _initHammer()
+    {
+        const hammer = new Hammer(this.$ul[0], {
+            recognizers: [
+                [Hammer.Tap]
+            ]
+        });
+        hammer.on("tap", e => {
+            const $li = $(e.target).closest("li.item");
+            if ($li.length === 1 && $li.parent().is(this.$ul))
+            {
+                const item = $li.data("item");
+                this.trigger("itemclick", { item });
+            }
+        });
+    }
+
+
+
+
+
 
     get $ul()
     {
@@ -68,6 +101,7 @@ export default class ListView extends mx.View
             this._$itemTemplate = this.getItemTemplate();
         }
         const $li = this._$itemTemplate.clone();
+        $li.data("item", item);
         return $li;
     }
 

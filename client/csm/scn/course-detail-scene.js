@@ -46,9 +46,9 @@ export default class CourseDetailScene extends mx.Scene
         this.render();
     }
 
-    activate(args)
+    activate(course)
     {
-        this.course = serviceClient.courses[args.id];
+        this.course = serviceClient.courses[course.id];
     }
 
 

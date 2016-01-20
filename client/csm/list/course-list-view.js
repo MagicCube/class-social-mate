@@ -4,12 +4,20 @@ import ListView from "./list-view";
 
 export default class CourseListView extends ListView
 {
+    _animating = false;
+
     constructor(id)
     {
         super(id);
 
         this.addClass("course-list");
+        this.on("itemclick", e => {
+            const course = e.item;
+            mx.route("/course/" + course.id);
+        });
     }
+
+
 
 
 
@@ -32,7 +40,6 @@ export default class CourseListView extends ListView
     {
         const $li = super.renderItem(course, i, context);
         $li.attr("id", course.id);
-        $li.children("a").attr("href", "#/course/" + course.id);
 
         $li.find(".tag").css("background-color", course.color);
         $li.find(".title").toggleClass("small", course.name.length > 30).text(course.name);

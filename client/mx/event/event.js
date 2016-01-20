@@ -21,16 +21,15 @@ export default class Event
 
     trigger(source, args = {})
     {
-        const e = {
+        const e = $.extend(args, {
             type: this.type,
             source,
-            args,
             defaultPrevented: false,
             preventDefault: function()
             {
                 this.defaultPrevented = true;
             }
-        };
+        });
         this.listeners.forEach(listener => {
             listener(e);
         });

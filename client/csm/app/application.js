@@ -15,7 +15,7 @@ export default class Application extends mx.Application
 {
     _tabControl = null;
     _sceneStack = [];
-    _sessionDetailScene = null;
+    _courseDetailScene = null;
 
     constructor(id)
     {
@@ -55,7 +55,7 @@ export default class Application extends mx.Application
             this.popScene();
         });
         mx.route("/course/:id", context => {
-            this.pushSessionDetailScene(context.params);
+            this.pushCourseDetailScene(context.params);
         });
     }
 
@@ -109,12 +109,13 @@ export default class Application extends mx.Application
     }
 
 
-    pushSessionDetailScene(args)
+    pushCourseDetailScene(course)
     {
-        if (this._sessionDetailScene === null)
+        if (this._courseDetailScene === null)
         {
-            this._sessionDetailScene = new CourseDetailScene("courseDetail");
+            this._courseDetailScene = new CourseDetailScene("courseDetail");
         }
-        this.pushScene(this._sessionDetailScene, args);
+
+        this.pushScene(this._courseDetailScene, course);
     }
 }
