@@ -43,7 +43,7 @@ export default class Auth
             return;
         }
 
-        console.log(`[${schoolNum}] User is now signing in...`);
+        console.log(`[${schoolNum}] User is now signing in njubs.nju.edu.cn...`);
         request.post({
             url: "http://njubs.nju.edu.cn/mba/login.php",
             headers: {
