@@ -2,6 +2,9 @@ extends ../template/basic.jade
 
 append stylesheets
     link(rel="stylesheet", href=app.get("assets path") + "/csm/res/csm.css")
+        
+append body
+    include reward-dialog.jade
 
 append scripts
     script(src=app.get("assets path") + "/csm/csm.js")
