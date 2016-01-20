@@ -16,6 +16,10 @@ export default class UserNavListView extends mx.View
             </ul>
 
             <ul>
+                <li id="refresh"><a><span class="title">刷新</span></a></li>
+            </ul>
+
+            <ul>
                 <li class=logoff><a href="/api/auth/logoff?r=${Math.random()}"><span class="title">退出登录</span></a></li>
             </ul>
         `);
@@ -29,6 +33,9 @@ export default class UserNavListView extends mx.View
                     break;
                 case "share":
                     this.showWechat("share");
+                    break;
+                case "refresh":
+                    window.location.reload(true);
                     break;
             }
         });
