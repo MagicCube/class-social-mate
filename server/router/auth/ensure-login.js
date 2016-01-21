@@ -1,3 +1,5 @@
+import app from "../../app";
+
 export default function(req, res, next)
 {
     if (req.user)
@@ -6,6 +8,7 @@ export default function(req, res, next)
     }
     else
     {
-        res.redirect("/auth/login?redirect=" + encodeURIComponent(req.originalUrl));
+        //res.redirect("/auth/login?redirect=" + encodeURIComponent(req.originalUrl));
+        res.render("warning", { app });
     }
 }

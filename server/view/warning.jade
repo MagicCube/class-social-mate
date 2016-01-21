@@ -1,0 +1,22 @@
+extends ../template/html5.jade
+
+append body
+    .navbar.navbar-default.navbar-fixed-top
+        .container
+            .navbar-header
+                .navbar-brand 
+                    span.glyphicon.glyphicon-calendar
+                    span.title 登录到 MBA 移动课程表
+    .container(style="padding-top:70px")
+        .row
+            .col-lg-6
+                .well
+                    h3 声明
+                    div
+                        p 由于某同学多次尝试输入密码失败，南大网络中心已将本站点 IP 地址暂时封闭，请明天再试。
+                        p 对此造成的不变，我深感遗憾和抱歉。
+                    
+
+append hmtScripts
+    script.
+        _hmt.push(['_setCustomVar', 1, "id", "anonymous", 1]);
