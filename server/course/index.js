@@ -18,7 +18,7 @@ const courses = rawCourses.map((rawCourse) => {
         {
             const timeString = `${YEAR}-` + rawSession;
             session = {
-                startTime: new Date(timeString)
+                startTime: new Date(timeString + " GMT+0800")
             };
             sessions.push(session);
         }
@@ -26,11 +26,11 @@ const courses = rawCourses.map((rawCourse) => {
         {
             const dateString = `${YEAR}-` + rawSession;
             session = {
-                startTime: new Date(dateString + " 09:00")
+                startTime: new Date(dateString + " 09:00 GMT+0800")
             };
             sessions.push(session);
             session = {
-                startTime: new Date(dateString + " 13:30")
+                startTime: new Date(dateString + " 13:30 GMT+0800")
             };
             sessions.push(session);
         }
@@ -50,5 +50,9 @@ for (let i = 0; i < courses.length; i++)
     })
     courses[c.id] = c;
 }
+
+courses.sort((a, b) => {
+    return a.sessions[0].startTime - b.sessions[0].startTime;
+});
 
 export default courses;
