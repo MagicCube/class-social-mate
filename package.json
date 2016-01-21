@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "An oversea e-commercial business.",
   "main": "index.js",
+  "engines": {
+    "node": "4.2.1"
+  },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./global",
     "start": "./bin/www"
