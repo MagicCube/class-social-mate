@@ -8,7 +8,7 @@ export default function(req, res, next)
     }
     else
     {
-        //res.redirect("/auth/login?redirect=" + encodeURIComponent(req.originalUrl));
-        res.render("warning", { app });
+        res.redirect("/auth/login?redirect=" + encodeURIComponent(req.originalUrl));
+        //res.render("warning", { app });
     }
 }
