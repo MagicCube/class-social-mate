@@ -1,9 +1,9 @@
 import { Router } from "express";
 import ical from "ical-generator";
 
-import User from "../../model/user";
+import User from "../../../lib/model/user";
 
-import courses from "../../course";
+import courses from "../../../lib/course";
 
 const router = Router();
 

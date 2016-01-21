@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import courses from "../../course";
+import courses from "../../../lib/course";
 
 const router = Router();
 

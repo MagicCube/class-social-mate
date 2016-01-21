@@ -1,6 +1,6 @@
 import should from "should";
 
-import courses from "../server/course";
+import courses from "../lib/course";
 
 describe("courses", function() {
     describe("#load courses", function() {

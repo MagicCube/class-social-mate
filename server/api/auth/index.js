@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import Auth from "../../nju-mba/auth";
-import Elective from "../../nju-mba/elective";
-import User from "../../model/user";
+import Auth from "../../../lib/nju-mba/auth";
+import Elective from "../../../lib/nju-mba/elective";
+import User from "../../../lib/model/user";
 
 const router = Router();
 const authMap = new Map();

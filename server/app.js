@@ -9,7 +9,7 @@ import router from "./router";
 
 
 // Mongoose
-import mongoose from "../mongoose";
+import mongoose from "../lib/mongoose";
 
 
 // Express
