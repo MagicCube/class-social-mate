@@ -62,3 +62,8 @@ append body
                         本应用不会以任何形式存储或泄露您的密码及隐私，该密码仅用于首次获取您的选修课程。
                 .modal-footer
                     button.btn.btn-primary(type='button', data-dismiss='modal') 知道了，谢谢
+
+
+append hmtScripts
+    script.
+        _hmt.push(['_setCustomVar', 1, "id", "anonymous", 1]);

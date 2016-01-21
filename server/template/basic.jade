@@ -2,6 +2,7 @@ extends html5.jade
 
 append scripts
     script!= "$user=" + JSON.stringify(user) + ";"
+
+append hmtScripts
     script.
-        var _hmt=_hmt||[];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?ca444758ce223969fdef6142d6312fbe";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
         _hmt.push(['_setCustomVar', 1, "id", $user.id, 1]);
