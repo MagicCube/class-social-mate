@@ -5,7 +5,9 @@
                 button.close(type='button', data-dismiss='modal'): span &times;
                 h3.modal-title 下载到我的日历
             .modal-body
-                p 请将下面的地址复制到剪贴簿，打开 iOS 默认的 <b>Safari</b> 网页浏览器，将刚才的地址粘贴到地址栏并访问即可。
+                p.
+                    请将下面的地址复制到剪贴簿，打开 iOS 默认的 <b>Safari</b> 网页浏览器，将刚才的地址粘贴到地址栏并访问，
+                    再在弹出的对话框中选择<b>“添加全部”</b>即可。
                 p 在成功导入后，打开 iOS 自带的<b>日历</b>应用，就可以直接查看课程了。
                 textarea.form-control#url(onfocus="this.select();")= "http://mba.coding.io/api/ical/" + user.id
                 p
