@@ -5,7 +5,7 @@ import User from "../../../lib/model/user";
 const router = Router();
 
 router.get("/all", (req, res) => {
-    const query = User.find({}).sort({ schoolNum: 1 });
+    const query = User.find({});
     query.exec((err, users) => {
         if (!err)
         {
