@@ -42,7 +42,7 @@ describe("nju-mba", function() {
                 ], (answer) => {
                     auth.login({
                         schoolNum: "mf1402157",
-                        password: "henry43",
+                        password: "",
                         captcha: answer.captcha
                     }, err => {
                         should(err).be.empty();
